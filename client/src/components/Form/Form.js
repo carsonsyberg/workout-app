@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import Card from "../UI/Card";
 import Input from "../UI/Input";
 import classes from "./Form.module.css";
-import { useDispatch } from 'react-redux';
-import { createPost } from '../../actions/posts';
+import { useDispatch } from "react-redux";
+import { createPost } from "../../actions/posts";
 
 const Form = () => {
   const [postData, setPostData] = useState({
@@ -16,6 +16,11 @@ const Form = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
+    setPostData({
+      workDay: "",
+      excName: "",
+      repNum: "",
+    });
     dispatch(createPost(postData));
   };
 

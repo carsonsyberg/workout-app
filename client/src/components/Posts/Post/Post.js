@@ -1,5 +1,6 @@
 import React from "react";
 import Card from "../../UI/Card";
+import classes from './Post.module.css';
 
 const parseForDay = (date) => {
   const d = new Date(date);
@@ -28,7 +29,7 @@ const Post = (props) => {
   const dayOfWeek = parseForDay(props.post.workDay);
 
   return (
-    <Card>
+    <Card className={classes.post}>
       <h1>{dayOfWeek}</h1>
       <h2>
         {props.post.excName} x{props.post.repNum}

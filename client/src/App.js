@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 
 import classes from './App.module.css';
 import posts from "./reducers/posts";
+import Workouts from "./components/Workouts/Workouts";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ const App = () => {
         <Posts />
         <Form />
       </div>
+        {/* <Workouts /> */}
     </div>
   );
 };

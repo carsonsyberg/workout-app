@@ -1,14 +1,20 @@
 import React, { useEffect } from "react";
 import memories from './images/memories.png';
+
 import Posts from "./components/Posts/Posts";
+import Workouts from "./components/Workouts/Workouts";
+
 import Form from "./components/Form/Form";
+import WorkoutForm from "./components/Forms/WorkoutForm";
+import DayForm from "./components/Forms/DayForm";
+import SetForm from "./components/Forms/SetForm";
+import RepForm from "./components/Forms/RepForm";
 
 import { getPosts } from "./actions/posts";
 import { useDispatch } from "react-redux";
 
 import classes from './App.module.css';
 import posts from "./reducers/posts";
-import Workouts from "./components/Workouts/Workouts";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -25,6 +31,10 @@ const App = () => {
       <div className={classes.contentBar}>
         <Posts />
         <Form />
+        <WorkoutForm />
+        <DayForm />
+        <SetForm />
+        <RepForm />
       </div>
         {/* <Workouts /> */}
     </div>

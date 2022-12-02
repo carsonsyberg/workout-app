@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const workoutSchema = mongoose.Schema({
     workoutName: String,
-    isDefault: Boolean
+    isDefault: String
 });
 
 const Workout = mongoose.model('Workout', workoutSchema);

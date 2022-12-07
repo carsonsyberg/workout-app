@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Workout from "../models/workout.js";
 import Day from "../models/day.js";
 import Set from "../models/set.js";
@@ -89,4 +90,84 @@ export const createRep = async (req, res) => {
   } catch (error) {
     res.status(409).json({ message: error.message });
   }
+};
+
+export const updateWorkout = async (req, res) => {
+  const { id: _id } = req.params;
+  const workout = req.body;
+
+  if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No workout with that id');
+
+  const updatedWorkout = await Workout.findByIdAndUpdate(_id, workout, { new: true });
+
+  res.json(updatedWorkout);
+};
+
+export const updateDay = async (req, res) => {
+  const { id: _id } = req.params;
+  const day = req.body;
+
+  if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No day with that id');
+
+  const updatedDay = await Day.findByIdAndUpdate(_id, day, { new: true });
+
+  res.json(updatedDay);
+};
+
+export const updateSet = async (req, res) => {
+  const { id: _id } = req.params;
+  const set = req.body;
+
+  if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No set with that id');
+
+  const updatedSet = await Set.findByIdAndUpdate(_id, set, { new: true });
+
+  res.json(updatedSet);
+};
+
+export const updateRep = async (req, res) => {
+  const { id: _id } = req.params;
+  const rep = req.body;
+
+  if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No rep with that id');
+
+  const updatedRep = await Rep.findByIdAndUpdate(_id, rep, { new: true });
+
+  res.json(updatedRep);
+};
+
+export const deleteWorkout = async (req, res) => {
+  const { id: _id } = req.params;
+  if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No workout with that id');
+
+  await Workout.findByIdAndRemove(_id);
+
+  res.json({ message: 'Workout deleted successfully' });
+};
+
+export const deleteDay = async (req, res) => {
+  const { id: _id } = req.params;
+  if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No day with that id');
+
+  await Day.findByIdAndRemove(_id);
+
+  res.json({ message: 'Day deleted successfully' });
+};
+
+export const deleteSet = async (req, res) => {
+  const { id: _id } = req.params;
+  if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No set with that id');
+
+  await Set.findByIdAndRemove(_id);
+
+  res.json({ message: 'Set deleted successfully' });
+};
+
+export const deleteRep = async (req, res) => {
+  const { id: _id } = req.params;
+  if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No rep with that id');
+
+  await Rep.findByIdAndRemove(_id);
+
+  res.json({ message: 'Rep deleted successfully' });
 };

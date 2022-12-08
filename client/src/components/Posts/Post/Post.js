@@ -1,6 +1,8 @@
 import React from "react";
 import Card from "../../UI/Card";
 import classes from './Post.module.css';
+import { useDispatch } from 'react-redux';
+import { deletePost } from "../../../actions/posts";
 
 const parseForDay = (date) => {
   const d = new Date(date);
@@ -25,16 +27,19 @@ const parseForDay = (date) => {
   }
 };
 
-const Post = (props) => {
-  const dayOfWeek = parseForDay(props.post.workDay);
+const Post = ({ post, setCurrentId }) => {
+  const dayOfWeek = parseForDay(post.workDay);
+  const dispatch = useDispatch();
 
   return (
     <Card className={classes.post}>
       <h1>{dayOfWeek}</h1>
       <h2>
-        {props.post.excName} x{props.post.repNum}
+        {post.excName} x{post.repNum}
       </h2>
-      <h3>{props.post._id}</h3>
+      <h3>{post._id}</h3>
+      <button onClick={() => setCurrentId(post._id)}>Edit Post</button>
+      <button onClick={() => dispatch(deletePost(post._id))}>Delete Post</button>
     </Card>
   );
 };

@@ -1,32 +1,51 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "../UI/Card";
 import Input from "../UI/Input";
 import classes from "./Form.module.css";
-import { useDispatch } from "react-redux";
-import { createPost } from "../../actions/posts";
+import { useSelector, useDispatch } from "react-redux";
+import { createPost, updatePost } from "../../actions/posts";
 
-const Form = () => {
+const Form = ({ currentId, setCurrentId }) => {
   const [postData, setPostData] = useState({
     workDay: "",
     excName: "",
     repNum: "",
   });
 
+  const post = useSelector((state) =>
+    currentId ? state.posts.find((p) => p._id === currentId) : null
+  );
+
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    if (post) setPostData(post);
+  }, [post]);
+
   const submitHandler = (e) => {
+
     e.preventDefault();
+
+    if (currentId) {
+      dispatch(updatePost(currentId, postData));
+    } else {
+      dispatch(createPost(postData));
+    }
+    clear();
+  };
+
+  const clear = () => {
+    setCurrentId(null);
     setPostData({
       workDay: "",
       excName: "",
       repNum: "",
     });
-    dispatch(createPost(postData));
   };
 
   return (
     <Card className={classes.form}>
-      <h2>Add New Set</h2>
+      <h2>{currentId ? "Edit " : "Add New "}Set</h2>
       <form onSubmit={submitHandler}>
         <Input
           input={{
@@ -63,6 +82,7 @@ const Form = () => {
         />
         <button type="submit">Submit</button>
       </form>
+      <button onClick={clear}>Clear</button>
     </Card>
   );
 };

@@ -1,18 +1,18 @@
 import React from "react";
-import finalPropsSelectorFactory from "react-redux/es/connect/selectorFactory";
-import Rep from "./Rep";
+import Card from "../../UI/Card";
+import { useDispatch } from 'react-redux';
+import { deleteSet } from "../../../actions/workouts";
 
-const Set = (props) => {
+const Set = ({ set, setCurrentId }) => {
+  const dispatch = useDispatch();
   return (
-    <>
-      <h4>{props.setName}</h4>
-      <ul>
-        <Rep weight="145" units="lbs" />
-        <Rep weight="145" units="lbs" />
-        <Rep weight="145" units="lbs" />
-        <Rep weight="145" units="lbs" />
-      </ul>
-    </>
+    <Card>
+      <h2>{set.setName}</h2>
+      <h4>Day Id: {set.dayId}</h4>
+      <h4>Set Id: {set._id}</h4>
+      <button onClick={() => setCurrentId(set._id)}>Edit Set</button>
+      <button onClick={() => dispatch(deleteSet(set._id))}>Delete Set</button>
+    </Card>
   );
 };
 

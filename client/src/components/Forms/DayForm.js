@@ -1,26 +1,47 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "../UI/Card";
 import Input from "../UI/Input";
-import { useDispatch } from "react-redux";
-import { createDay } from "../../actions/workouts";
+import { useSelector, useDispatch } from "react-redux";
+import { createDay, updateDay } from "../../actions/workouts";
 
-const DayForm = () => {
+const DayForm = ({ currentId, setCurrentId, updateFunction }) => {
   const [dayData, setDayData] = useState({
     workoutId: "",
     dayOfWeek: "",
     dayName: "",
   });
 
+  const clear = () => {
+    setCurrentId(null);
+    setDayData({
+      workoutId: "",
+      dayOfWeek: "",
+      dayName: "",
+    });
+  };
+
+  const day = useSelector((state) =>
+    currentId ? state.days.find((d) => d._id === currentId) : null
+  );
+
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (day) setDayData(day);
+  }, [day]);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    setDayData({
-        workoutId: "",
-        dayOfWeek: "",
-        dayName: "",
-    });
-    dispatch(createDay(dayData));
+    
+    if (currentId) {
+      dispatch(updateDay(currentId, dayData));
+    } else {
+      dispatch(createDay(dayData));
+    }
+
+    updateFunction();
+
+    clear();
   };
 
   return (
@@ -62,6 +83,7 @@ const DayForm = () => {
         />
         <button type="submit">Add Day</button>
       </form>
+      <button onClick={clear}>Clear</button>
     </Card>
   );
 };

@@ -1,24 +1,45 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "../UI/Card";
 import Input from "../UI/Input";
-import { useDispatch } from "react-redux";
-import { createWorkout } from "../../actions/workouts";
+import { useSelector, useDispatch } from "react-redux";
+import { createWorkout, updateWorkout } from "../../actions/workouts";
 
-const WorkoutForm = () => {
+const WorkoutForm = ({ currentId, setCurrentId, updateFunction }) => {
   const [workoutData, setWorkoutData] = useState({
     workoutName: "",
     isDefault: "",
   });
 
+  const clear = () => {
+    setCurrentId(null);
+    setWorkoutData({
+      workoutName: "",
+      isDefault: "",
+    });
+  };
+
+  const workout = useSelector((state) =>
+    currentId ? state.workouts.find((w) => w._id === currentId) : null
+  );
+
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (workout) setWorkoutData(workout);
+  }, [workout]);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    setWorkoutData({
-        workoutName: "",
-        isDefault: "",
-    });
-    dispatch(createWorkout(workoutData));
+
+    if (currentId) {
+      dispatch(updateWorkout(currentId, workoutData));
+    } else {
+      dispatch(createWorkout(workoutData));
+    }
+
+    updateFunction();
+
+    clear();
   };
 
   return (
@@ -49,6 +70,7 @@ const WorkoutForm = () => {
         />
         <button type="submit">Add Workout</button>
       </form>
+      <button onClick={clear}>Clear</button>
     </Card>
   );
 };

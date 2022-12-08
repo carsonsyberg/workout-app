@@ -1,26 +1,47 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "../UI/Card";
 import Input from "../UI/Input";
-import { useDispatch } from "react-redux";
-import { createRep } from "../../actions/workouts";
+import { useSelector, useDispatch } from "react-redux";
+import { createRep, updateRep } from "../../actions/workouts";
 
-const RepForm = () => {
+const RepForm = ({ currentId, setCurrentId, updateFunction }) => {
   const [repData, setRepData] = useState({
     setId: "",
     weight: 0,
     numReps: 0,
   });
 
+  const clear = () => {
+    setCurrentId(null);
+    setRepData({
+      setId: "",
+      weight: 0,
+      numReps: 0,
+    });
+  };
+
+  const rep = useSelector((state) =>
+    currentId ? state.reps.find((r) => r._id === currentId) : null
+  );
+
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (rep) setRepData(rep);
+  }, [rep]);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    setRepData({
-        setId: "",
-        weight: 0,
-        numReps: 0,
-    });
-    dispatch(createRep(repData));
+
+    if (currentId) {
+      dispatch(updateRep(currentId, repData));
+    } else {
+      dispatch(createRep(repData));
+    }
+
+    updateFunction();
+    
+    clear();
   };
 
   return (
@@ -62,6 +83,7 @@ const RepForm = () => {
         />
         <button type="submit">Add Rep</button>
       </form>
+      <button onClick={clear}>Clear</button>
     </Card>
   );
 };

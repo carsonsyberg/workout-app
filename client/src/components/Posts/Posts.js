@@ -4,7 +4,7 @@ import Card from "../UI/Card";
 import { useSelector } from "react-redux";
 import classes from "./Posts.module.css";
 
-const Posts = () => {
+const Posts = ({ setCurrentId }) => {
   const [dayFilter, setDayFilter] = useState("7");
 
   const posts = useSelector((state) => {
@@ -43,7 +43,7 @@ const Posts = () => {
       </select>
       <div className={classes.grid}>
         {dayFilter == 7
-          ? posts.map((post) => <Post key={post._id} post={post} />)
+          ? posts.map((post) => <Post key={post._id} post={post} setCurrentId={setCurrentId} />)
           : filteredPosts.map((post) => <Post key={post._id} post={post} />)}
       </div>
     </Card>

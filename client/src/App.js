@@ -8,10 +8,10 @@ import Sets from "./components/Workouts/Sets";
 import Reps from "./components/Workouts/Reps";
 
 // import Form from "./components/Form/Form";
-import WorkoutForm from "./components/Forms/WorkoutForm";
-import DayForm from "./components/Forms/DayForm";
-import SetForm from "./components/Forms/SetForm";
-import RepForm from "./components/Forms/RepForm";
+import WorkoutForm from "./components/WorkoutForms/WorkoutForm";
+import DayForm from "./components/WorkoutForms/DayForm";
+import SetForm from "./components/WorkoutForms/SetForm";
+import RepForm from "./components/WorkoutForms/RepForm";
 
 // import { getPosts } from "./actions/posts";
 import { useDispatch } from "react-redux";
@@ -76,11 +76,6 @@ const App = () => {
           setCurrentId={setCurrentWorkoutId}
           updateFunction={workoutUpdate}
         />
-        <DayForm
-          currentId={currentDayId}
-          setCurrentId={setCurrentDayId}
-          updateFunction={dayUpdate}
-        />
         <SetForm
           currentId={currentSetId}
           setCurrentId={setCurrentSetId}
@@ -92,7 +87,11 @@ const App = () => {
           updateFunction={repUpdate}
         />
         <Workouts setCurrentId={setCurrentWorkoutId} />
-        <Days setCurrentId={setCurrentDayId} />
+        <Days 
+          currentId={currentDayId}
+          setCurrentId={setCurrentDayId}
+          updateFunction={dayUpdate}
+        />
         <Sets setCurrentId={setCurrentSetId} />
         <Reps setCurrentId={setCurrentRepId} />
       </div>

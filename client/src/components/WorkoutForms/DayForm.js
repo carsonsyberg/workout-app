@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { createDay, updateDay } from "../../actions/workouts";
 
 const DayForm = ({ currentId, setCurrentId, updateFunction }) => {
+
   const [dayData, setDayData] = useState({
     workoutId: "",
     dayOfWeek: "",
@@ -32,7 +33,7 @@ const DayForm = ({ currentId, setCurrentId, updateFunction }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    
+
     if (currentId) {
       dispatch(updateDay(currentId, dayData));
     } else {

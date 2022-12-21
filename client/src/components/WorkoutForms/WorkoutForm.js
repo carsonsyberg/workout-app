@@ -4,7 +4,7 @@ import Input from "../UI/Input";
 import { useSelector, useDispatch } from "react-redux";
 import { createWorkout, updateWorkout } from "../../actions/workouts";
 
-const WorkoutForm = ({ currentId, setCurrentId, updateFunction }) => {
+const WorkoutForm = ({ currentId, setCurrentId, updateFunction, formToggle }) => {
   const [workoutData, setWorkoutData] = useState({
     workoutName: "",
     isDefault: "",
@@ -30,6 +30,8 @@ const WorkoutForm = ({ currentId, setCurrentId, updateFunction }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
+    
+    formToggle(false);
 
     if (currentId) {
       dispatch(updateWorkout(currentId, workoutData));

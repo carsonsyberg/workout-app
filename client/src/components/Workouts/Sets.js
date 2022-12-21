@@ -1,10 +1,13 @@
 // dayId, setName
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import Set from "./Workout/Set";
+import DisplaySetForm from "./DisplayWorkoutForms/DisplaySetForm";
 import Card from "../UI/Card";
 
-const Sets = ({ setCurrentId }) => {
+const Sets = ({ currentId, setCurrentId, updateFunction }) => {
+  const [formToggled, setFormToggled] = useState(false);
+  
   const sets = useSelector((state) => {
     return state.sets;
   });
@@ -16,8 +19,17 @@ const Sets = ({ setCurrentId }) => {
   ) : (
     <Card>
       <h2>Sets</h2>
-      {sets.map((set) => {
+      {/* {sets.map((set) => {
         return <Set key={set._id} set={set} setCurrentId={setCurrentId} />;
+      })} */}
+      {sets.map((set) => {
+        return (
+          <DisplaySetForm
+            key={set._id}
+            set={set}
+            updateFunction={updateFunction}
+          />
+        );
       })}
     </Card>
   );

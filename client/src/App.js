@@ -86,14 +86,23 @@ const App = () => {
           setCurrentId={setCurrentRepId}
           updateFunction={repUpdate}
         />
-        <Workouts setCurrentId={setCurrentWorkoutId} />
-        <Days 
+        <Workouts
+          currentId={currentWorkoutId}
+          setCurrentId={setCurrentWorkoutId}
+          updateFunction={workoutUpdate} />
+        <Days
           currentId={currentDayId}
           setCurrentId={setCurrentDayId}
           updateFunction={dayUpdate}
         />
-        <Sets setCurrentId={setCurrentSetId} />
-        <Reps setCurrentId={setCurrentRepId} />
+        <Sets
+          currentId={currentSetId}
+          setCurrentId={setCurrentSetId}
+          updateFunction={setUpdate} />
+        <Reps
+          currentId={currentRepId}
+          setCurrentId={setCurrentRepId}
+          updateFunction={repUpdate} />
       </div>
     </div>
   );

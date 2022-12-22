@@ -71,21 +71,6 @@ const App = () => {
       <div className={classes.contentBar}>
         {/* <Posts setCurrentId={setCurrentPostId} />
         <Form currentId={currentPostId} setCurrentId={setCurrentPostId} /> */}
-        <WorkoutForm
-          currentId={currentWorkoutId}
-          setCurrentId={setCurrentWorkoutId}
-          updateFunction={workoutUpdate}
-        />
-        <SetForm
-          currentId={currentSetId}
-          setCurrentId={setCurrentSetId}
-          updateFunction={setUpdate}
-        />
-        <RepForm
-          currentId={currentRepId}
-          setCurrentId={setCurrentRepId}
-          updateFunction={repUpdate}
-        />
         <Workouts
           currentId={currentWorkoutId}
           setCurrentId={setCurrentWorkoutId}

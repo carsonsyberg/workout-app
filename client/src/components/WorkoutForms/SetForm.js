@@ -4,7 +4,7 @@ import Input from "../UI/Input";
 import { useSelector, useDispatch } from "react-redux";
 import { createSet, updateSet } from "../../actions/workouts";
 
-const SetForm = ({ currentId, setCurrentId, updateFunction }) => {
+const SetForm = ({ currentId, setCurrentId, updateFunction, formToggle }) => {
   const [setData, setSetData] = useState({
     dayId: "",
     setName: "",
@@ -30,6 +30,8 @@ const SetForm = ({ currentId, setCurrentId, updateFunction }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
+    
+    formToggle(false);
 
     if (currentId) {
       dispatch(updateSet(currentId, setData));

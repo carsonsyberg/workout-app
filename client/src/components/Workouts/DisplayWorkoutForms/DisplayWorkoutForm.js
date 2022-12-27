@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Card from "../../UI/Card";
 import Input from "../../UI/Input";
+import Days from "../Days";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteWorkout, updateWorkout } from "../../../actions/workouts";
+import { deleteWorkout, updateWorkout, getDays } from "../../../actions/workouts";
 
 // What pieces form should have usually
 // [workoutName] [isDefault]
@@ -14,6 +15,11 @@ const DisplayWorkoutForm = ({ workout, updateFunction }) => {
 
   const [workoutData, setWorkoutData] = useState(workout);
   const [formChanged, setFormChanged] = useState(false);
+  const [currentDayId, setCurrentDayId] = useState(null);
+
+  const dayUpdate = () => {
+    dispatch(getDays());
+  };
 
   const cancelEdit = () => {
     setWorkoutData(workout);
@@ -60,6 +66,12 @@ const DisplayWorkoutForm = ({ workout, updateFunction }) => {
         {formChanged && <button type="submit">Update Workout</button>}
       </form>
       {formChanged && <button onClick={cancelEdit} >Cancel Update</button>}
+      <Days
+        currentWorkoutId={currentId}
+        currentId={currentDayId}
+        setCurrentId={setCurrentDayId}
+        updateFunction={dayUpdate}
+      />
       {!formChanged && <button onClick={() => dispatch(deleteWorkout(workout._id))}>Delete Workout</button>}
     </Card>
   );

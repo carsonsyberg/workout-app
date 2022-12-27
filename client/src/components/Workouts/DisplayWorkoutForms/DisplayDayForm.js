@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Card from "../../UI/Card";
 import Input from "../../UI/Input";
+import Sets from "../Sets";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteDay, updateDay } from "../../../actions/workouts";
+import { deleteDay, updateDay, getSets } from "../../../actions/workouts";
 
 // What pieces form should have usually
 // [dayOfWeekDropDown] [dayName] [deleteButton]
@@ -14,6 +15,11 @@ const DisplayDayForm = ({ day, updateFunction }) => {
 
   const [dayData, setDayData] = useState(day);
   const [formChanged, setFormChanged] = useState(false);
+  const [currentSetId, setCurrentSetId] = useState(null);
+
+  const setUpdate = () => {
+    dispatch(getSets());
+  };
 
   const cancelEdit = () => {
     setDayData(day);
@@ -60,6 +66,11 @@ const DisplayDayForm = ({ day, updateFunction }) => {
         {formChanged && <button type="submit">Update Day</button>}
       </form>
       {formChanged && <button onClick={cancelEdit} >Cancel Update</button>}
+      <Sets
+        currentDayId={currentId}
+        currentSetId={currentSetId}
+        setCurrentId={setCurrentSetId}
+        updateFunction={setUpdate} />
       {!formChanged && <button onClick={() => dispatch(deleteDay(day._id))}>Delete Day</button>}
     </Card>
   );

@@ -4,18 +4,22 @@ import { useSelector } from "react-redux";
 import Day from "./Workout/Day";
 import DisplayDayForm from "./DisplayWorkoutForms/DisplayDayForm";
 import Card from "../UI/Card";
-import DayForm from "../WorkoutForms/DayForm";
+import DayForm from "./WorkoutForms/DayForm";
 
-const Days = ({ currentId, setCurrentId, updateFunction }) => {
+const Days = ({ currentWorkoutId, currentId, setCurrentId, updateFunction }) => {
   const [formToggled, setFormToggled] = useState(false);
 
   const days = useSelector((state) => {
     return state.days;
   });
 
+  const filteredDays = days.filter((day) => {
+    return day.workoutId === currentWorkoutId;
+  });
+
   return (
     <Card>
-      {!days.length ? (
+      {!filteredDays.length ? (
         <h2>No days.</h2>
       ) : (
         <>
@@ -23,7 +27,7 @@ const Days = ({ currentId, setCurrentId, updateFunction }) => {
           {/* {days.map((day) => {
             return <Day key={day._id} day={day} setCurrentId={setCurrentId} />
           })} */}
-          {days.map((day) => {
+          {filteredDays.map((day) => {
             return (
               <DisplayDayForm
                 key={day._id}
@@ -37,6 +41,7 @@ const Days = ({ currentId, setCurrentId, updateFunction }) => {
       {formToggled ? (
         <>
           <DayForm
+            currentWorkoutId={currentWorkoutId}
             currentId={currentId}
             setCurrentId={setCurrentId}
             formToggle={setFormToggled}

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import Workout from "./Workout/Workout";
-import WorkoutForm from "../WorkoutForms/WorkoutForm";
+import WorkoutForm from "./WorkoutForms/WorkoutForm";
 import DisplayWorkoutForm from "./DisplayWorkoutForms/DisplayWorkoutForm";
 import Card from "../UI/Card";
 

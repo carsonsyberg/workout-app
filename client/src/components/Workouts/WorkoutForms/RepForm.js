@@ -1,27 +1,27 @@
 import React, { useState, useEffect } from "react";
-import Card from "../UI/Card";
-import Input from "../UI/Input";
+import Card from "../../UI/Card";
+import Input from "../../UI/Input";
 import { useSelector, useDispatch } from "react-redux";
-import { createRep, updateRep } from "../../actions/workouts";
+import { createRep, updateRep } from "../../../actions/workouts";
 
-const RepForm = ({ currentId, setCurrentId, formToggle }) => {
+const RepForm = ({ currentSetId, currentRepId, setCurrentRepId, formToggle }) => {
   const [repData, setRepData] = useState({
-    setId: "",
+    setId: currentSetId,
     weight: 0,
     numReps: 0,
   });
 
   const clear = () => {
-    setCurrentId(null);
+    setCurrentRepId(null);
     setRepData({
-      setId: "",
+      setId: currentSetId,
       weight: 0,
       numReps: 0,
     });
   };
 
   const rep = useSelector((state) =>
-    currentId ? state.reps.find((r) => r._id === currentId) : null
+    currentRepId ? state.reps.find((r) => r._id === currentRepId) : null
   );
 
   const dispatch = useDispatch();
@@ -35,8 +35,8 @@ const RepForm = ({ currentId, setCurrentId, formToggle }) => {
     
     formToggle(false);
 
-    if (currentId) {
-      dispatch(updateRep(currentId, repData));
+    if (currentRepId) {
+      dispatch(updateRep(currentRepId, repData));
     } else {
       dispatch(createRep(repData));
     }
@@ -53,6 +53,7 @@ const RepForm = ({ currentId, setCurrentId, formToggle }) => {
             id: "set_id",
             type: "text",
             value: repData.setId,
+            readOnly: true,
             onChange: (e) => {
               setRepData({ ...repData, setId: e.target.value });
             },

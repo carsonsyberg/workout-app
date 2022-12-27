@@ -3,15 +3,13 @@ import memories from "./images/memories.png";
 
 // import Posts from "./components/Posts/Posts";
 import Workouts from "./components/Workouts/Workouts";
-import Days from "./components/Workouts/Days";
-import Sets from "./components/Workouts/Sets";
 import Reps from "./components/Workouts/Reps";
 
 // import Form from "./components/Form/Form";
-import WorkoutForm from "./components/WorkoutForms/WorkoutForm";
-import DayForm from "./components/WorkoutForms/DayForm";
-import SetForm from "./components/WorkoutForms/SetForm";
-import RepForm from "./components/WorkoutForms/RepForm";
+import WorkoutForm from "./components/Workouts/WorkoutForms/WorkoutForm";
+import DayForm from "./components/Workouts/WorkoutForms/DayForm";
+import SetForm from "./components/Workouts/WorkoutForms/SetForm";
+import RepForm from "./components/Workouts/WorkoutForms/RepForm";
 
 // import { getPosts } from "./actions/posts";
 import { useDispatch } from "react-redux";
@@ -24,9 +22,6 @@ import { getWorkouts, getDays, getSets, getReps } from "./actions/workouts";
 const App = () => {
   // const [currentPostId, setCurrentPostId] = useState(null);
   const [currentWorkoutId, setCurrentWorkoutId] = useState(null);
-  const [currentDayId, setCurrentDayId] = useState(null);
-  const [currentSetId, setCurrentSetId] = useState(null);
-  const [currentRepId, setCurrentRepId] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -39,26 +34,11 @@ const App = () => {
     dispatch(getReps());
   }, [
     currentWorkoutId,
-    currentDayId,
-    currentSetId,
-    currentRepId,
     dispatch,
   ]);
 
   const workoutUpdate = () => {
     dispatch(getWorkouts());
-  };
-
-  const dayUpdate = () => {
-    dispatch(getDays());
-  };
-
-  const setUpdate = () => {
-    dispatch(getSets());
-  };
-
-  const repUpdate = () => {
-    dispatch(getReps());
   };
 
   return (
@@ -75,19 +55,6 @@ const App = () => {
           currentId={currentWorkoutId}
           setCurrentId={setCurrentWorkoutId}
           updateFunction={workoutUpdate} />
-        <Days
-          currentId={currentDayId}
-          setCurrentId={setCurrentDayId}
-          updateFunction={dayUpdate}
-        />
-        <Sets
-          currentId={currentSetId}
-          setCurrentId={setCurrentSetId}
-          updateFunction={setUpdate} />
-        <Reps
-          currentId={currentRepId}
-          setCurrentId={setCurrentRepId}
-          updateFunction={repUpdate} />
       </div>
     </div>
   );

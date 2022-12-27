@@ -2,20 +2,24 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import Set from "./Workout/Set";
-import SetForm from "../WorkoutForms/SetForm";
+import SetForm from "./WorkoutForms/SetForm";
 import DisplaySetForm from "./DisplayWorkoutForms/DisplaySetForm";
 import Card from "../UI/Card";
 
-const Sets = ({ currentId, setCurrentId, updateFunction }) => {
+const Sets = ({ currentDayId, currentId, setCurrentId, updateFunction }) => {
   const [formToggled, setFormToggled] = useState(false);
 
   const sets = useSelector((state) => {
     return state.sets;
   });
 
+  const filteredSets = sets.filter((set) => {
+    return set.dayId === currentDayId;
+  });
+
   return (
     <Card>
-      {!sets.length ? (
+      {!filteredSets.length ? (
         <h2>No sets.</h2>
       ) : (
         <>
@@ -23,7 +27,7 @@ const Sets = ({ currentId, setCurrentId, updateFunction }) => {
           {/* {sets.map((set) => {
             return <Set key={set._id} set={set} setCurrentId={setCurrentId} />;
           })} */}
-          {sets.map((set) => {
+          {filteredSets.map((set) => {
             return (
               <DisplaySetForm
                 key={set._id}
@@ -37,6 +41,7 @@ const Sets = ({ currentId, setCurrentId, updateFunction }) => {
       {formToggled ? (
         <>
           <SetForm
+            currentDayId={currentDayId}
             currentId={currentId}
             setCurrentId={setCurrentId}
             formToggle={setFormToggled}

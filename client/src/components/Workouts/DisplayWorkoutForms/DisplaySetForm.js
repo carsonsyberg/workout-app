@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Card from "../../UI/Card";
 import Input from "../../UI/Input";
+import Reps from "../Reps";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteSet, updateSet } from "../../../actions/workouts";
+import { deleteSet, updateSet, getReps } from "../../../actions/workouts";
 
 // What pieces form should have usually
 // [dayId] [setName]
@@ -10,10 +11,15 @@ import { deleteSet, updateSet } from "../../../actions/workouts";
 
 const DisplaySetForm = ({ set, updateFunction }) => {
 
-  const currentId = set._id;
+  const currentSetId = set._id;
 
   const [setData, setSetData] = useState(set);
   const [formChanged, setFormChanged] = useState(false);
+  const [currentRepId, setCurrentRepId] = useState(null);
+
+  const repUpdate = () => {
+    dispatch(getReps());
+  };
 
   const cancelEdit = () => {
     setSetData(set);
@@ -25,7 +31,7 @@ const DisplaySetForm = ({ set, updateFunction }) => {
   const submitHandler = (e) => {
     e.preventDefault();
     setFormChanged(false);
-    dispatch(updateSet(currentId, setData));
+    dispatch(updateSet(currentSetId, setData));
 
     updateFunction();
   };
@@ -38,6 +44,7 @@ const DisplaySetForm = ({ set, updateFunction }) => {
             id: "day_id",
             type: "text",
             value: setData.dayId,
+            readOnly: true,
             onChange: (e) => {
               setSetData({ ...setData, dayId: e.target.value });
               setFormChanged(true);
@@ -59,8 +66,13 @@ const DisplaySetForm = ({ set, updateFunction }) => {
         />
         {formChanged && <button type="submit">Update Set</button>}
       </form>
+      <Reps
+        currentSetId={currentSetId}
+        currentRepId={currentRepId}
+        setCurrentId={setCurrentRepId}
+        updateFunction={repUpdate} />
       {formChanged && <button onClick={cancelEdit} >Cancel Update</button>}
-      {!formChanged && <button onClick={() => dispatch(deleteSet(set._id))}>Delete Set</button>}
+      {!formChanged && <button onClick={() => dispatch(deleteSet(currentSetId))}>Delete Set</button>}
     </Card>
   );
 };

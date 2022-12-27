@@ -38,6 +38,7 @@ const DisplayRepForm = ({ rep, updateFunction }) => {
             id: "set_id",
             type: "text",
             value: repData.setId,
+            readOnly: true,
             onChange: (e) => {
               setRepData({ ...repData, setId: e.target.value });
               setFormChanged(true);

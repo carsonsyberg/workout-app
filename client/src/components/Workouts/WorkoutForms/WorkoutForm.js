@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Card from "../UI/Card";
-import Input from "../UI/Input";
+import Card from "../../UI/Card";
+import Input from "../../UI/Input";
 import { useSelector, useDispatch } from "react-redux";
-import { createWorkout, updateWorkout } from "../../actions/workouts";
+import { createWorkout, updateWorkout } from "../../../actions/workouts";
 
 const WorkoutForm = ({ currentId, setCurrentId, formToggle }) => {
   const [workoutData, setWorkoutData] = useState({

@@ -2,18 +2,22 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import Rep from "./Workout/Rep";
-import RepForm from "../WorkoutForms/RepForm";
+import RepForm from "./WorkoutForms/RepForm";
 import DisplayRepForm from "./DisplayWorkoutForms/DisplayRepForm";
 import Card from "../UI/Card";
 
-const Reps = ({ currentId, setCurrentId, updateFunction }) => {
+const Reps = ({ currentSetId, currentRepId, setCurrentId, updateFunction }) => {
   const [formToggled, setFormToggled] = useState(false);
 
   const reps = useSelector((state) => {
     return state.reps;
   });
 
-  return (<Card>{!reps.length ? (
+  const filteredReps = reps.filter((rep) => {
+    return rep.setId === currentSetId;
+  });
+
+  return (<Card>{!filteredReps.length ? (
     <h2>No reps.</h2>
   ) : (
     <>
@@ -21,7 +25,7 @@ const Reps = ({ currentId, setCurrentId, updateFunction }) => {
       {/* {reps.map((rep) => {
         return <Rep key={rep._id} rep={rep} setCurrentId={setCurrentId} />;
       })} */}
-      {reps.map((rep) => {
+      {filteredReps.map((rep) => {
         return (
           <DisplayRepForm
             key={rep._id}
@@ -35,8 +39,9 @@ const Reps = ({ currentId, setCurrentId, updateFunction }) => {
     {formToggled ? (
       <>
         <RepForm
-          currentId={currentId}
-          setCurrentId={setCurrentId}
+          currentSetId={currentSetId}
+          currentRepId={currentRepId}
+          setCurrentRepId={setCurrentId}
           formToggle={setFormToggled}
         />
         <button onClick={() => setFormToggled(false)}>Cancel</button>

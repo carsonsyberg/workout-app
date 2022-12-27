@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import Card from "../UI/Card";
-import Input from "../UI/Input";
+import Card from "../../UI/Card";
+import Input from "../../UI/Input";
 import { useSelector, useDispatch } from "react-redux";
-import { createDay, updateDay } from "../../actions/workouts";
+import { createDay, updateDay } from "../../../actions/workouts";
 
-const DayForm = ({ currentId, setCurrentId, formToggle }) => {
+const DayForm = ({ currentWorkoutId, currentId, setCurrentId, formToggle }) => {
 
   const [dayData, setDayData] = useState({
-    workoutId: "",
+    workoutId: currentWorkoutId,
     dayOfWeek: "",
     dayName: "",
   });
@@ -15,7 +15,7 @@ const DayForm = ({ currentId, setCurrentId, formToggle }) => {
   const clear = () => {
     setCurrentId(null);
     setDayData({
-      workoutId: "",
+      workoutId: currentWorkoutId,
       dayOfWeek: "",
       dayName: "",
     });
@@ -54,6 +54,7 @@ const DayForm = ({ currentId, setCurrentId, formToggle }) => {
             id: "workout_id",
             type: "text",
             value: dayData.workoutId,
+            readOnly: true,
             onChange: (e) => {
               setDayData({ ...dayData, workoutId: e.target.value });
             },

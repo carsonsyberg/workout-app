@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
-import Card from "../UI/Card";
-import Input from "../UI/Input";
+import Card from "../../UI/Card";
+import Input from "../../UI/Input";
 import { useSelector, useDispatch } from "react-redux";
-import { createSet, updateSet } from "../../actions/workouts";
+import { createSet, updateSet } from "../../../actions/workouts";
 
-const SetForm = ({ currentId, setCurrentId, formToggle }) => {
+const SetForm = ({ currentDayId, currentId, setCurrentId, formToggle }) => {
   const [setData, setSetData] = useState({
-    dayId: "",
+    dayId: currentDayId,
     setName: "",
   });
 
   const clear = () => {
     setCurrentId(null);
     setSetData({
-      dayId: "",
+      dayId: currentDayId,
       setName: "",
     });
   };
@@ -51,6 +51,7 @@ const SetForm = ({ currentId, setCurrentId, formToggle }) => {
             id: "day_id",
             type: "text",
             value: setData.dayId,
+            readOnly: true,
             onChange: (e) => {
               setSetData({ ...setData, dayId: e.target.value });
             },

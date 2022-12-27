@@ -4,7 +4,7 @@ import Input from "../UI/Input";
 import { useSelector, useDispatch } from "react-redux";
 import { createDay, updateDay } from "../../actions/workouts";
 
-const DayForm = ({ currentId, setCurrentId, updateFunction, formToggle }) => {
+const DayForm = ({ currentId, setCurrentId, formToggle }) => {
 
   const [dayData, setDayData] = useState({
     workoutId: "",
@@ -41,8 +41,6 @@ const DayForm = ({ currentId, setCurrentId, updateFunction, formToggle }) => {
     } else {
       dispatch(createDay(dayData));
     }
-
-    updateFunction();
 
     clear();
   };

@@ -39,7 +39,6 @@ const Days = ({ currentId, setCurrentId, updateFunction }) => {
           <DayForm
             currentId={currentId}
             setCurrentId={setCurrentId}
-            updateFunction={updateFunction}
             formToggle={setFormToggled}
           />
           <button onClick={() => setFormToggled(false)}>Cancel</button>

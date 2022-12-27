@@ -39,7 +39,6 @@ const Sets = ({ currentId, setCurrentId, updateFunction }) => {
           <SetForm
             currentId={currentId}
             setCurrentId={setCurrentId}
-            updateFunction={updateFunction}
             formToggle={setFormToggled}
           />
           <button onClick={() => setFormToggled(false)}>Cancel</button>

@@ -4,7 +4,7 @@ import Input from "../UI/Input";
 import { useSelector, useDispatch } from "react-redux";
 import { createRep, updateRep } from "../../actions/workouts";
 
-const RepForm = ({ currentId, setCurrentId, updateFunction, formToggle }) => {
+const RepForm = ({ currentId, setCurrentId, formToggle }) => {
   const [repData, setRepData] = useState({
     setId: "",
     weight: 0,
@@ -40,8 +40,6 @@ const RepForm = ({ currentId, setCurrentId, updateFunction, formToggle }) => {
     } else {
       dispatch(createRep(repData));
     }
-
-    updateFunction();
     
     clear();
   };

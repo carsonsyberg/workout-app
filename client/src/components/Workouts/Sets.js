@@ -23,7 +23,7 @@ const Sets = ({ currentDayId, currentId, setCurrentId, updateFunction }) => {
         <h2>No sets.</h2>
       ) : (
         <>
-          <h2>Sets</h2>
+          {/* <h2>Sets</h2> */}
           {/* {sets.map((set) => {
             return <Set key={set._id} set={set} setCurrentId={setCurrentId} />;
           })} */}

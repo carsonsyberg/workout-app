@@ -23,7 +23,7 @@ const Days = ({ currentWorkoutId, currentId, setCurrentId, updateFunction }) => 
         <h2>No days.</h2>
       ) : (
         <>
-          <h2>Days</h2>
+          {/* <h2>Days</h2> */}
           {/* {days.map((day) => {
             return <Day key={day._id} day={day} setCurrentId={setCurrentId} />
           })} */}

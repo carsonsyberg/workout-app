@@ -4,6 +4,7 @@ import Input from "../../UI/Input";
 import Days from "../Days";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteWorkout, updateWorkout, getDays } from "../../../actions/workouts";
+import classes from "./DisplayDayForm.module.css";
 
 // What pieces form should have usually
 // [workoutName] [isDefault]
@@ -37,8 +38,8 @@ const DisplayWorkoutForm = ({ workout, updateFunction }) => {
   };
 
   return (
-    <Card>
-      <form onSubmit={submitHandler}>
+    <>
+      <form className={classes.form} onSubmit={submitHandler}>
         <Input
           input={{
             id: "workout_name",
@@ -64,16 +65,16 @@ const DisplayWorkoutForm = ({ workout, updateFunction }) => {
           label="Is Default"
         />
         {formChanged && <button type="submit">Update Workout</button>}
+        {formChanged && <button onClick={cancelEdit} >Cancel Update</button>}
+        {!formChanged && <button onClick={() => dispatch(deleteWorkout(workout._id))}>Delete Workout</button>}
       </form>
-      {formChanged && <button onClick={cancelEdit} >Cancel Update</button>}
       <Days
         currentWorkoutId={currentId}
         currentId={currentDayId}
         setCurrentId={setCurrentDayId}
         updateFunction={dayUpdate}
       />
-      {!formChanged && <button onClick={() => dispatch(deleteWorkout(workout._id))}>Delete Workout</button>}
-    </Card>
+    </>
   );
 };
 

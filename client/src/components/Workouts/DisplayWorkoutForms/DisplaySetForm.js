@@ -4,6 +4,7 @@ import Input from "../../UI/Input";
 import Reps from "../Reps";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteSet, updateSet, getReps } from "../../../actions/workouts";
+import classes from "./DisplayDayForm.module.css";
 
 // What pieces form should have usually
 // [dayId] [setName]
@@ -38,8 +39,8 @@ const DisplaySetForm = ({ set, updateFunction }) => {
 
   return (
     <Card>
-      <form onSubmit={submitHandler}>
-        <Input
+      <form className={classes.form} onSubmit={submitHandler}>
+        {/* <Input
           input={{
             id: "day_id",
             type: "text",
@@ -51,7 +52,7 @@ const DisplaySetForm = ({ set, updateFunction }) => {
             },
           }}
           label="Day Id"
-        />
+        /> */}
         <Input
           input={{
             id: "set_name",
@@ -65,14 +66,14 @@ const DisplaySetForm = ({ set, updateFunction }) => {
           label="Set Name"
         />
         {formChanged && <button type="submit">Update Set</button>}
+        {formChanged && <button onClick={cancelEdit} >Cancel Update</button>}
+        {!formChanged && <button onClick={() => dispatch(deleteSet(currentSetId))}>Delete Set</button>}
       </form>
       <Reps
         currentSetId={currentSetId}
         currentRepId={currentRepId}
         setCurrentId={setCurrentRepId}
         updateFunction={repUpdate} />
-      {formChanged && <button onClick={cancelEdit} >Cancel Update</button>}
-      {!formChanged && <button onClick={() => dispatch(deleteSet(currentSetId))}>Delete Set</button>}
     </Card>
   );
 };

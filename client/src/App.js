@@ -47,7 +47,6 @@ const App = () => {
         <h2 className={classes.headerText}>Workout App</h2>
         <img className={classes.headerImg} src={memories} alt="memories" />
       </div>
-      <h1>WorkoutID: {currentWorkoutId}</h1>
       <div className={classes.contentBar}>
         {/* <Posts setCurrentId={setCurrentPostId} />
         <Form currentId={currentPostId} setCurrentId={setCurrentPostId} /> */}

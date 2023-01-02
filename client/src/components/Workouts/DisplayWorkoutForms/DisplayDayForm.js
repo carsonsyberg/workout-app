@@ -4,6 +4,7 @@ import Input from "../../UI/Input";
 import Sets from "../Sets";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteDay, updateDay, getSets } from "../../../actions/workouts";
+import classes from "./DisplayDayForm.module.css";
 
 // What pieces form should have usually
 // [dayOfWeekDropDown] [dayName] [deleteButton]
@@ -37,8 +38,8 @@ const DisplayDayForm = ({ day, updateFunction }) => {
   };
 
   return (
-    <Card>
-      <form onSubmit={submitHandler}>
+    <>
+      <form className={classes.form} onSubmit={submitHandler}>
         <Input
           input={{
             id: "day_of_week",
@@ -64,15 +65,16 @@ const DisplayDayForm = ({ day, updateFunction }) => {
           label="Day Name"
         />
         {formChanged && <button type="submit">Update Day</button>}
+        {formChanged && <button onClick={cancelEdit} >Cancel Update</button>}
+        {!formChanged && <button onClick={() => dispatch(deleteDay(day._id))}>Delete Day</button>}
       </form>
-      {formChanged && <button onClick={cancelEdit} >Cancel Update</button>}
       <Sets
         currentDayId={currentId}
         currentSetId={currentSetId}
         setCurrentId={setCurrentSetId}
         updateFunction={setUpdate} />
-      {!formChanged && <button onClick={() => dispatch(deleteDay(day._id))}>Delete Day</button>}
-    </Card>
+      
+    </>
   );
 };
 

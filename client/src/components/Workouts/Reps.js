@@ -17,11 +17,11 @@ const Reps = ({ currentSetId, currentRepId, setCurrentId, updateFunction }) => {
     return rep.setId === currentSetId;
   });
 
-  return (<Card>{!filteredReps.length ? (
+  return (<>{!filteredReps.length ? (
     <h2>No reps.</h2>
   ) : (
     <>
-      <h2>Reps</h2>
+      {/* <h2>Reps</h2> */}
       {/* {reps.map((rep) => {
         return <Rep key={rep._id} rep={rep} setCurrentId={setCurrentId} />;
       })} */}
@@ -49,7 +49,7 @@ const Reps = ({ currentSetId, currentRepId, setCurrentId, updateFunction }) => {
     ) : (
       <button onClick={() => setFormToggled(true)}>Add New Rep</button>
     )}
-  </Card>)
+  </>)
 };
 
 export default Reps;

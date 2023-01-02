@@ -3,6 +3,7 @@ import Card from "../../UI/Card";
 import Input from "../../UI/Input";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteRep, updateRep } from "../../../actions/workouts";
+import classes from "./DisplayDayForm.module.css";
 
 // What pieces form should have usually
 // [setId] [weight] [numReps]
@@ -31,9 +32,9 @@ const DisplayRepForm = ({ rep, updateFunction }) => {
   };
 
   return (
-    <Card>
-      <form onSubmit={submitHandler}>
-        <Input
+    <>
+      <form className={classes.form} onSubmit={submitHandler}>
+        {/* <Input
           input={{
             id: "set_id",
             type: "text",
@@ -45,7 +46,7 @@ const DisplayRepForm = ({ rep, updateFunction }) => {
             },
           }}
           label="Set Id"
-        />
+        /> */}
         <Input
           input={{
             id: "weight",
@@ -71,10 +72,10 @@ const DisplayRepForm = ({ rep, updateFunction }) => {
           label="Number of Reps"
         />
         {formChanged && <button type="submit">Update Rep</button>}
+        {formChanged && <button onClick={cancelEdit} >Cancel Update</button>}
+        {!formChanged && <button onClick={() => dispatch(deleteRep(rep._id))}>Delete Rep</button>}
       </form>
-      {formChanged && <button onClick={cancelEdit} >Cancel Update</button>}
-      {!formChanged && <button onClick={() => dispatch(deleteRep(rep._id))}>Delete Rep</button>}
-    </Card>
+    </>
   );
 };
 

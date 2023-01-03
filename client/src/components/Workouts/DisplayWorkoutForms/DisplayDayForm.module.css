@@ -3,3 +3,7 @@
     direction: row;
     background-color: rgb(211, 62, 17);
 };
+
+.icon {
+    color: white;
+}

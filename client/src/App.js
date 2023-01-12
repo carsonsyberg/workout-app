@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import memories from "./images/memories.png";
 
 // import Posts from "./components/Posts/Posts";
 import Workouts from "./components/Workouts/Workouts";
@@ -17,11 +16,17 @@ import { useDispatch } from "react-redux";
 import classes from "./App.module.css";
 // import posts from "./reducers/posts";
 import { getWorkouts, getDays, getSets, getReps } from "./actions/workouts";
+import NaviBar from "./components/Partials/NaviBar";
+import Home from "./components/Pages/Home";
+import Admin from "./components/Pages/Admin";
+import WorkoutPage from "./components/Pages/WorkoutPage";
+import Profile from "./components/Pages/Profile";
 // import Post from "./components/Posts/Post/Post";
 
 const App = () => {
   // const [currentPostId, setCurrentPostId] = useState(null);
   const [currentWorkoutId, setCurrentWorkoutId] = useState(null);
+  const [pageState, setPageState] = useState('home');
 
   const dispatch = useDispatch();
 
@@ -41,19 +46,30 @@ const App = () => {
     dispatch(getWorkouts());
   };
 
+  const selectPage = () => {
+    switch (pageState) {
+      case 'home':
+        return <Home />;
+      case 'admin':
+        return <Admin />;
+      case 'profile':
+        return <Profile />;
+      case 'workout':
+        return <WorkoutPage />;
+      default:
+        return <p>No page found.</p>
+    }
+  };
+
   return (
     <div className={classes.app}>
-      <div className={classes.headerBar}>
-        <h2 className={classes.headerText}>Workout App</h2>
-        <img className={classes.headerImg} src={memories} alt="memories" />
-      </div>
+      <NaviBar currPage={pageState} setPage={setPageState} />
       <div className={classes.contentBar}>
-        {/* <Posts setCurrentId={setCurrentPostId} />
-        <Form currentId={currentPostId} setCurrentId={setCurrentPostId} /> */}
-        <Workouts
+        {selectPage()}
+        {/* <Workouts
           currentId={currentWorkoutId}
           setCurrentId={setCurrentWorkoutId}
-          updateFunction={workoutUpdate} />
+          updateFunction={workoutUpdate} /> */}
       </div>
     </div>
   );

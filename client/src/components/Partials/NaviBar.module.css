@@ -1,0 +1,42 @@
+.navbar {
+    background-color: rgb(255, 230, 230);
+    width: 100%;
+}
+
+.navbar ul {
+    list-style: none;
+}
+
+.navbar li {
+    display: inline;
+    border: none;
+    padding: 2em;
+    background-color: rgb(255, 230, 230);
+    font-size: large;
+}
+
+.navbar button {
+    border: none;
+    padding: 2em;
+    background-color: rgb(255, 230, 230);
+    font-size: large;
+}
+
+.navbar button:hover, .navbar button:focus {
+    border: none;
+    background-color: rgb(255, 243, 243);
+}
+
+.navbar .profile_button {
+    float: right;
+}
+
+.navbar .login_button {
+    float: right;
+    margin-right: 2.5em;
+}
+
+.headerImg img {
+    order: 1;
+    height: 5em;
+}

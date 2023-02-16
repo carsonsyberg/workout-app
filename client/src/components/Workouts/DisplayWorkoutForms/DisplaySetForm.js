@@ -11,7 +11,6 @@ import classes from "./DisplayDayForm.module.css";
 // upon changing fields add submit edit / cancel edit buttons
 
 const DisplaySetForm = ({ set, updateFunction }) => {
-
   const currentSetId = set._id;
 
   const [setData, setSetData] = useState(set);
@@ -38,7 +37,7 @@ const DisplaySetForm = ({ set, updateFunction }) => {
   };
 
   return (
-    <Card>
+    <Card className={classes.setCard}>
       <form className={classes.form} onSubmit={submitHandler}>
         {/* <Input
           input={{
@@ -66,14 +65,19 @@ const DisplaySetForm = ({ set, updateFunction }) => {
           label="Set Name"
         />
         {formChanged && <button type="submit">Update Set</button>}
-        {formChanged && <button onClick={cancelEdit} >Cancel Update</button>}
-        {!formChanged && <button onClick={() => dispatch(deleteSet(currentSetId))}>Delete Set</button>}
+        {formChanged && <button onClick={cancelEdit}>Cancel Update</button>}
+        {!formChanged && (
+          <button onClick={() => dispatch(deleteSet(currentSetId))}>
+            Delete Set
+          </button>
+        )}
       </form>
       <Reps
         currentSetId={currentSetId}
         currentRepId={currentRepId}
         setCurrentId={setCurrentRepId}
-        updateFunction={repUpdate} />
+        updateFunction={repUpdate}
+      />
     </Card>
   );
 };

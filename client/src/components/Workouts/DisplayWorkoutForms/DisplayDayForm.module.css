@@ -1,9 +1,20 @@
 .form {
     display: flex;
     direction: row;
-    background-color: rgb(211, 62, 17);
 };
 
 .icon {
     color: white;
+}
+
+.workoutCard {
+    margin: 1em;
+}
+
+.dayCard {
+    margin: 1em;
+}
+
+.setCard {
+    margin: 1em;
 }

@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 
 const Profile = (props) => {
-    return (<h1>Profile Page</h1>);
+  return (
+    <div>
+      <h1>Profile Page</h1>
+    </div>
+  );
 };
 
 export default Profile;

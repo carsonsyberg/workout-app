@@ -1,0 +1,11 @@
+.button {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #ebebeb;
+    font: inherit;
+    padding: 0.25em;
+}
+
+.button:hover, .button:focus {
+    background-color: #dadada;
+}

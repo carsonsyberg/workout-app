@@ -73,7 +73,7 @@ const DisplayRepForm = ({ rep, updateFunction }) => {
         />
         {formChanged && <button type="submit">Update Rep</button>}
         {formChanged && <button onClick={cancelEdit} >Cancel Update</button>}
-        {!formChanged && <button onClick={() => dispatch(deleteRep(rep._id))}><i class="fi fi-rs-trash"></i></button>}
+        {!formChanged && <button onClick={() => dispatch(deleteRep(rep._id))}><i className="fi fi-rs-trash"></i></button>}
       </form>
     </>
   );

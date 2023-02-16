@@ -3,7 +3,7 @@ import classes from "./NaviBar.module.css";
 import memories from "../../images/memories.png";
 import DateTime from "./DateTime";
 
-const NaviBar = ({ currPage, setPage }) => {
+const NaviBar = ({ currPage, setPage, setSide, sideState }) => {
   return (
     <div className={classes.navbar}>
       <ul>
@@ -13,13 +13,34 @@ const NaviBar = ({ currPage, setPage }) => {
           </button>
         </li> */}
         <li>
-          <button onClick={() => setPage("home")}>Home</button>
+          <button
+            onClick={() => {
+              setPage("home");
+              setSide("");
+            }}
+          >
+            Home
+          </button>
         </li>
         <li>
-          <button onClick={() => setPage("workout")}>Workouts</button>
+          <button
+            onClick={() => {
+              setPage("workout");
+              setSide("");
+            }}
+          >
+            Workouts
+          </button>
         </li>
         <li>
-          <button onClick={() => setPage("admin")}>Admin</button>
+          <button
+            onClick={() => {
+              setPage("admin");
+              setSide("");
+            }}
+          >
+            Admin
+          </button>
         </li>
         <li>
           <button>
@@ -27,15 +48,21 @@ const NaviBar = ({ currPage, setPage }) => {
           </button>
         </li>
         <li>
-          <button className={classes.login_button}>Login</button>
-        </li>
-        <li>
-          <button
-            className={classes.profile_button}
-            onClick={() => setPage("profile")}
-          >
-            Profile
-          </button>
+          {sideState === "login" ? (
+            <button
+              className={classes.login_button}
+              onClick={() => setSide("")}
+            >
+              Cancel
+            </button>
+          ) : (
+            <button
+              className={classes.login_button}
+              onClick={() => setSide("login")}
+            >
+              Login
+            </button>
+          )}
         </li>
       </ul>
     </div>

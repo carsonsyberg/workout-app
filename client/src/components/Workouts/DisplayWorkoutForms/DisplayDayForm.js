@@ -38,7 +38,7 @@ const DisplayDayForm = ({ day, updateFunction }) => {
   };
 
   return (
-    <>
+    <div className={classes.dayCard}>
       <form className={classes.form} onSubmit={submitHandler}>
         <Input
           input={{
@@ -74,7 +74,7 @@ const DisplayDayForm = ({ day, updateFunction }) => {
         setCurrentId={setCurrentSetId}
         updateFunction={setUpdate} />
       
-    </>
+    </div>
   );
 };
 

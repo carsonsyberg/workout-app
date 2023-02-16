@@ -3,7 +3,11 @@ import Card from "../../UI/Card";
 import Input from "../../UI/Input";
 import Days from "../Days";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteWorkout, updateWorkout, getDays } from "../../../actions/workouts";
+import {
+  deleteWorkout,
+  updateWorkout,
+  getDays,
+} from "../../../actions/workouts";
 import classes from "./DisplayDayForm.module.css";
 
 // What pieces form should have usually
@@ -11,7 +15,6 @@ import classes from "./DisplayDayForm.module.css";
 // upon changing fields add submit edit / cancel edit buttons
 
 const DisplayWorkoutForm = ({ workout, updateFunction }) => {
-
   const currentId = workout._id;
 
   const [workoutData, setWorkoutData] = useState(workout);
@@ -21,6 +24,10 @@ const DisplayWorkoutForm = ({ workout, updateFunction }) => {
   const dayUpdate = () => {
     dispatch(getDays());
   };
+
+  const days = useSelector((state) => {
+    return state.days;
+  });
 
   const cancelEdit = () => {
     setWorkoutData(workout);
@@ -38,7 +45,7 @@ const DisplayWorkoutForm = ({ workout, updateFunction }) => {
   };
 
   return (
-    <>
+    <div className={classes.workoutCard}>
       <form className={classes.form} onSubmit={submitHandler}>
         <Input
           input={{
@@ -65,16 +72,25 @@ const DisplayWorkoutForm = ({ workout, updateFunction }) => {
           label="Is Default"
         />
         {formChanged && <button type="submit">Update Workout</button>}
-        {formChanged && <button onClick={cancelEdit} >Cancel Update</button>}
-        {!formChanged && <button onClick={() => dispatch(deleteWorkout(workout._id))}>Delete Workout</button>}
+        {formChanged && <button onClick={cancelEdit}>Cancel Update</button>}
+        {!formChanged && (
+          <button onClick={() => dispatch(deleteWorkout(workout._id))}>
+            Delete Workout
+          </button>
+        )}
       </form>
+      <select >
+        {days.map((d) => (
+          <option value={d.dayName}>{d.dayOfWeek}</option>
+        ))}
+      </select>
       <Days
         currentWorkoutId={currentId}
         currentId={currentDayId}
         setCurrentId={setCurrentDayId}
         updateFunction={dayUpdate}
       />
-    </>
+    </div>
   );
 };
 

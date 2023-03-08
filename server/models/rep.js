@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const repSchema = mongoose.Schema({
-    setId: String,
+    setId: mongoose.Types.ObjectId,
     weight: Number,
     numReps: Number
 });

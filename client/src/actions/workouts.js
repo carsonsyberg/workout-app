@@ -43,6 +43,55 @@ export const deleteWorkout = (id) => async (dispatch) => {
 }
 
 /***********************************************************
+ *                      Week Actions
+ ***********************************************************/
+export const getWeeks = () => async (dispatch) => {
+  try {
+    const { data } = await api.fetchWeeks();
+    dispatch({ type: "FETCH_ALL_WEEKS", payload: data });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const getWeeksByWorkoutId = (id) => async (dispatch) => {
+  try {
+    const { data } = await api.fetchWeeksByWorkoutId(id);
+    dispatch({ type: "FETCH_ALL_WEEKS", payload: data });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const createWeek = (post) => async (dispatch) => {
+  try {
+    const { data } = await api.createWeek(post);
+    dispatch({ type: "CREATE_WEEK", payload: data });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const updateWeek = (id, week) => async (dispatch) => {
+  try {
+    const { data } = await api.updateWeek(id, week);
+
+    dispatch({ type: 'UPDATE_WEEK', payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const deleteWeek = (id) => async (dispatch) => {
+  try {
+    await api.deleteWeek(id);
+    dispatch({ type: 'DELETE_WEEK', payload: id });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+/***********************************************************
  *                      Day Actions
  ***********************************************************/
 export const getDays = () => async (dispatch) => {

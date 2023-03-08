@@ -1,10 +1,11 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const setSchema = mongoose.Schema({
-    dayId: String,
-    setName: String
+  dayId: mongoose.Types.ObjectId,
+  setName: String,
+  notes: String,
 });
 
-const Set = mongoose.model('Set', setSchema);
+const Set = mongoose.model("Set", setSchema);
 
 export default Set;

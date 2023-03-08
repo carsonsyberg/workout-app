@@ -1,11 +1,10 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const daySchema = mongoose.Schema({
-    workoutId: String,
-    dayOfWeek: String,
-    dayName: String
+  weekId: mongoose.Types.ObjectId,
+  dayOfWeek: String,
 });
 
-const Day = mongoose.model('Day', daySchema);
+const Day = mongoose.model("Day", daySchema);
 
 export default Day;

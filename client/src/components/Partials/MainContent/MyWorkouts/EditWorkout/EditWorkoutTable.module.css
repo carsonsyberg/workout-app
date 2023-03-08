@@ -1,0 +1,84 @@
+.editWorkoutTable {
+  display: grid;
+  border: 1px solid #b3b3b3;
+  grid-auto-rows: 1fr;
+  width: 25em;
+  margin-top: 2.75rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.weekName {
+  padding-top: 0.35em;
+  padding-bottom: 0.35em;
+  font-weight: lighter;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.editWorkoutRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-top: 1px solid #b3b3b3;
+  align-items: center;
+}
+
+.editWorkoutRow > h3 {
+  font-weight: lighter;
+  margin-left: 0.75em;
+}
+
+.editWorkoutRow > button {
+  height: 100%;
+  background-color: inherit;
+  border: none;
+  border-left: 1px solid #b3b3b3;
+}
+
+.editWorkoutRow > button:hover,
+.editWorkoutRow > button:focus {
+  background-color: #ffa0a0;
+}
+
+.editWorkoutRow > button > img {
+  padding: 1em;
+  height: 1.5em;
+}
+
+.editWorkoutButton > button {
+  border: none;
+  background-color: inherit;
+  border-top: 1px solid #b3b3b3;
+  width: 100%;
+  height: 100%;
+  font-size: medium;
+}
+
+.editWorkoutButton > button:hover,
+.editWorkoutButton > button:focus {
+  background-color: #e2e2e2;
+}
+
+.deleteButtons > button:hover,
+.deleteButtons > button:focus {
+  background-color: #e2e2e2;
+}
+
+.deleteButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.deleteButtons > button {
+  width: 100%;
+  background-color: white;
+  border: none;
+  border-top: 1px solid #b3b3b3;
+  font-size: inherit;
+}
+
+.deleteButtons > .confirmDeleteButton {
+  border-right: 1px solid #b3b3b3;
+}

@@ -1,10 +1,12 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const workoutSchema = mongoose.Schema({
-    workoutName: String,
-    isDefault: String
+  userId: mongoose.Types.ObjectId,
+  workoutName: String,
+  isDefault: String,
+  description: String,
 });
 
-const Workout = mongoose.model('Workout', workoutSchema);
+const Workout = mongoose.model("Workout", workoutSchema);
 
 export default Workout;

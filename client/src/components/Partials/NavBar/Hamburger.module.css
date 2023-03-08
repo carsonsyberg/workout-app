@@ -1,0 +1,17 @@
+
+.image {
+    margin-left: 2rem;
+    background-color: inherit;
+    padding-left: 0.65rem;
+    padding-right: 0.65rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+}
+
+.image:hover, .image:focus {
+    background-color: white;
+    padding-left: 0.65rem;
+    padding-right: 0.65rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+}

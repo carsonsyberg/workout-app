@@ -28,16 +28,29 @@ import {
   deleteWeek,
 } from "../controllers/workouts.js";
 import {
+  getWorkoutsByUserId,
   getWorkouts,
   createWorkout,
   updateWorkout,
   deleteWorkout,
 } from "../controllers/workouts.js";
+import {
+  getUsers,
+  createUser,
+  updateUser,
+  deleteUser,
+} from "../controllers/users.js";
 
 const router = express.Router();
 
 // localhost:5000/
+router.get("/users", getUsers);
+router.post("/users", createUser);
+router.patch("/users/:id", updateUser);
+router.delete("/users/:id", deleteUser);
+
 router.get("/workouts", getWorkouts);
+router.get("/workouts/:id", getWorkoutsByUserId);
 router.post("/workouts", createWorkout);
 router.patch("/workouts/:id", updateWorkout);
 router.delete("/workouts/:id", deleteWorkout);

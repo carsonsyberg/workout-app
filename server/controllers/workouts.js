@@ -1,285 +1,405 @@
-import mongoose from "mongoose";
-import Workout from "../models/workout.js";
-import Week from "../models/week.js";
-import Day from "../models/day.js";
-import Set from "../models/set.js";
-import Rep from "../models/rep.js";
+import { db } from "../index.js";
 
+// ----------------------------------------------------------
+//                      WORKOUTS CONTROLLER
+// ----------------------------------------------------------
 export const getWorkouts = async (req, res) => {
-  try {
-    const workouts = await Workout.find();
-    res.status(200).json(workouts);
-  } catch (error) {
-    res.status(404).json({ message: error.message });
-  }
+  db.query("SELECT * FROM WORKOUTS", (err, result) => {
+    if (err) {
+      res.status(404).send(err);
+    }
+
+    console.log(result);
+    res.status(200).json(result);
+  });
 };
 
-export const getWeeks = async (req, res) => {
-  try {
-    const weeks = await Week.find();
-    res.status(200).json(weeks);
-  } catch (error) {
-    res.status(404).json({ message: error.message });
-  }
-};
+export const getWorkoutsByUserId = async (req, res) => {
+  const { id: userId } = req.params;
+  db.query(`SELECT * FROM WORKOUTS WHERE userId = ${userId}`, (err, result) => {
+    if (err) {
+      res.status(404).send(err);
+    }
 
-export const getDays = async (req, res) => {
-  try {
-    const days = await Day.find();
-    res.status(200).json(days);
-  } catch (error) {
-    res.status(404).json({ message: error.message });
-  }
-};
-
-export const getSets = async (req, res) => {
-  try {
-    const sets = await Set.find();
-    res.status(200).json(sets);
-  } catch (error) {
-    res.status(404).json({ message: error.message });
-  }
-};
-
-export const getReps = async (req, res) => {
-  try {
-    const reps = await Rep.find();
-    res.status(200).json(reps);
-  } catch (error) {
-    res.status(404).json({ message: error.message });
-  }
-};
-
-export const getWeeksByWorkoutId = async (req, res) => {
-  const { id: workoutId } = req.params;
-
-  if (!mongoose.Types.ObjectId.isValid(workoutId))
-    return res.status(404).send("No workout with that id");
-
-  try {
-    const weeks = await Week.find({ workoutId: workoutId });
-    res.status(200).json(weeks);
-  } catch (error) {
-    res.status(404).json({ message: error.message });
-  }
-};
-
-export const getDaysByWeekId = async (req, res) => {
-  const { id: weekId } = req.params;
-
-  if (!mongoose.Types.ObjectId.isValid(weekId))
-    return res.status(404).send("No week with that id");
-
-  try {
-    const days = await Day.find({ weekId: weekId });
-    res.status(200).json(days);
-  } catch (error) {
-    res.status(404).json({ message: error.message });
-  }
-};
-
-export const getSetsByDayId = async (req, res) => {
-  const { id: dayId } = req.params;
-
-  if (!mongoose.Types.ObjectId.isValid(dayId))
-    return res.status(404).send("No day with that id");
-
-  try {
-    const sets = await Set.find({ dayId: dayId });
-    res.status(200).json(sets);
-  } catch (error) {
-    res.status(404).json({ message: error.message });
-  }
-};
-
-export const getRepsBySetId = async (req, res) => {
-  const { id: setId } = req.params;
-
-  if (!mongoose.Types.ObjectId.isValid(setId))
-    return res.status(404).send("No set with that id");
-
-  try {
-    const reps = await Rep.find({ setId: setId });
-    res.status(200).json(reps);
-  } catch (error) {
-    res.status(404).json({ message: error.message });
-  }
+    console.log(result);
+    res.status(200).json(result);
+  });
 };
 
 export const createWorkout = async (req, res) => {
   const workout = req.body;
+  db.query(
+    `INSERT INTO WORKOUTS (userId, workoutName, isDefault, description) VALUES (?, ?, ?, ?)`,
+    [
+      workout.userId,
+      workout.workoutName,
+      workout.isDefault,
+      workout.description,
+    ],
+    (err, result) => {
+      if (err) {
+        res.status(409).json(err);
+      }
 
-  const newWorkout = new Workout(workout);
-
-  try {
-    await newWorkout.save();
-    res.status(201).json(newWorkout);
-  } catch (error) {
-    res.status(409).json({ message: error.message });
-  }
-};
-
-export const createWeek = async (req, res) => {
-  const week = req.body;
-
-  const newWeek = new Week(week);
-
-  try {
-    await newWeek.save();
-    res.status(201).json(newWeek);
-  } catch (error) {
-    res.status(409).json({ message: error.message });
-  }
-};
-
-export const createDay = async (req, res) => {
-  const day = req.body;
-
-  const newDay = new Day(day);
-
-  try {
-    await newDay.save();
-    res.status(201).json(newDay);
-  } catch (error) {
-    res.status(409).json({ message: error.message });
-  }
-};
-
-export const createSet = async (req, res) => {
-  const set = req.body;
-
-  const newSet = new Set(set);
-
-  try {
-    await newSet.save();
-    res.status(201).json(newSet);
-  } catch (error) {
-    res.status(409).json({ message: error.message });
-  }
-};
-
-export const createRep = async (req, res) => {
-  const rep = req.body;
-
-  const newRep = new Rep(rep);
-
-  try {
-    await newRep.save();
-    res.status(201).json(newRep);
-  } catch (error) {
-    res.status(409).json({ message: error.message });
-  }
+      db.query(
+        `SELECT * FROM WORKOUTS WHERE _id = ?`,
+        [result.insertId],
+        (err_, result_) => {
+          if (err_) {
+            res.status(404).send(err_);
+          }
+          res.status(201).json(result_[0]);
+        }
+      );
+    }
+  );
 };
 
 export const updateWorkout = async (req, res) => {
   const { id: _id } = req.params;
   const workout = req.body;
 
-  if (!mongoose.Types.ObjectId.isValid(_id))
-    return res.status(404).send("No workout with that id");
+  db.query(
+    `UPDATE WORKOUTS SET workoutName=?, isDefault=?, description=? WHERE _id = ?`,
+    [workout.workoutName, workout.isDefault, workout.description, _id],
+    (err, result) => {
+      if (err) {
+        return res.status(404).json(err);
+      }
 
-  const updatedWorkout = await Workout.findByIdAndUpdate(_id, workout, {
-    new: true,
+      res.status(200).json(result);
+    }
+  );
+};
+
+export const deleteWorkout = async (req, res) => {
+  const { id: _id } = req.params;
+
+  db.query(`DELETE FROM WORKOUTS WHERE _id = ?`, [_id], (err) => {
+    if (err) {
+      return res.status(404).json(err);
+    }
+    res.json({ message: "Workout deleted successfully" });
   });
+};
+// ----------------------------------------------------------
 
-  res.json(updatedWorkout);
+// ----------------------------------------------------------
+//                      WEEKS CONTROLLER
+// ----------------------------------------------------------
+export const getWeeks = async (req, res) => {
+  db.query("SELECT * FROM WEEKS", (err, result) => {
+    if (err) {
+      res.status(404).send(err);
+    }
+
+    console.log(result);
+    res.status(200).json(result);
+  });
+};
+
+export const getWeeksByWorkoutId = async (req, res) => {
+  const { id: workoutId } = req.params;
+  db.query(
+    `SELECT * FROM WEEKS WHERE workoutId = ?`,
+    [workoutId],
+    (err, result) => {
+      if (err) {
+        res.status(404).send(err);
+      }
+
+      console.log(result);
+      res.status(200).json(result);
+    }
+  );
+};
+
+export const createWeek = async (req, res) => {
+  const week = req.body;
+  db.query(
+    `INSERT INTO WEEKS (workoutId, weekName) VALUES (?, ?)`,
+    [week.workoutId, week.weekName],
+    (err, result) => {
+      if (err) {
+        res.status(409).json(err);
+      }
+
+      db.query(
+        `SELECT * FROM WEEKS WHERE _id = ?`,
+        [result.insertId],
+        (err_, result_) => {
+          if (err_) {
+            res.status(404).send(err_);
+          }
+          res.status(201).json(result_[0]);
+        }
+      );
+    }
+  );
 };
 
 export const updateWeek = async (req, res) => {
   const { id: _id } = req.params;
   const week = req.body;
 
-  if (!mongoose.Types.ObjectId.isValid(_id))
-    return res.status(404).send("No week with that id");
+  db.query(
+    `UPDATE WEEKS SET weekName=? WHERE _id = ?`,
+    [week.weekName, _id],
+    (err, result) => {
+      if (err) {
+        return res.status(404).json(err);
+      }
 
-  const updatedWeek = await Week.findByIdAndUpdate(_id, week, { new: true });
+      res.status(200).json(result);
+    }
+  );
+};
 
-  res.json(updatedWeek);
+export const deleteWeek = async (req, res) => {
+  const { id: _id } = req.params;
+
+  db.query(`DELETE FROM WEEKS WHERE _id = ?`, [_id], (err) => {
+    if (err) {
+      return res.status(404).json(err);
+    }
+    res.json({ message: "Week deleted successfully" });
+  });
+};
+// ----------------------------------------------------------
+
+// ----------------------------------------------------------
+//                      DAYS CONTROLLER
+// ----------------------------------------------------------
+
+export const getDays = async (req, res) => {
+  db.query("SELECT * FROM DAYS", (err, result) => {
+    if (err) {
+      res.status(404).send(err);
+    }
+
+    console.log(result);
+    res.status(200).json(result);
+  });
+};
+export const getDaysByWeekId = async (req, res) => {
+  const { id: weekId } = req.params;
+  db.query(`SELECT * FROM DAYS WHERE weekId = ?`, [weekId], (err, result) => {
+    if (err) {
+      res.status(404).send(err);
+    }
+
+    console.log(result);
+    res.status(200).json(result);
+  });
+};
+
+export const createDay = async (req, res) => {
+  const day = req.body;
+  db.query(
+    `INSERT INTO DAYS (weekId, dayOfWeek) VALUES (?, ?)`,
+    [day.weekId, day.dayOfWeek],
+    (err, result) => {
+      if (err) {
+        res.status(409).json(err);
+      }
+
+      db.query(
+        `SELECT * FROM DAYS WHERE _id = ?`,
+        [result.insertId],
+        (err_, result_) => {
+          if (err_) {
+            res.status(404).send(err_);
+          }
+          res.status(201).json(result_[0]);
+        }
+      );
+    }
+  );
 };
 
 export const updateDay = async (req, res) => {
   const { id: _id } = req.params;
   const day = req.body;
 
-  if (!mongoose.Types.ObjectId.isValid(_id))
-    return res.status(404).send("No day with that id");
+  db.query(
+    `UPDATE DAYS SET dayOfWeek=? WHERE _id = ?`,
+    [day.dayOfWeek, _id],
+    (err, result) => {
+      if (err) {
+        return res.status(404).json(err);
+      }
 
-  const updatedDay = await Day.findByIdAndUpdate(_id, day, { new: true });
+      res.status(200).json(result);
+    }
+  );
+};
 
-  res.json(updatedDay);
+export const deleteDay = async (req, res) => {
+  const { id: _id } = req.params;
+
+  db.query(`DELETE FROM DAYS WHERE _id = ?`, [_id], (err) => {
+    if (err) {
+      return res.status(404).json(err);
+    }
+    res.json({ message: "Day deleted successfully" });
+  });
+};
+// ----------------------------------------------------------
+
+// ----------------------------------------------------------
+//                      SETS CONTROLLER
+// ----------------------------------------------------------
+export const getSets = async (req, res) => {
+  db.query("SELECT * FROM SETS", (err, result) => {
+    if (err) {
+      res.status(404).send(err);
+    }
+
+    console.log(result);
+    res.status(200).json(result);
+  });
+};
+
+export const getSetsByDayId = async (req, res) => {
+  const { id: dayId } = req.params;
+  db.query(`SELECT * FROM SETS WHERE dayId = ?`, [dayId], (err, result) => {
+    if (err) {
+      res.status(404).send(err);
+    }
+
+    console.log(result);
+    res.status(200).json(result);
+  });
+};
+
+export const createSet = async (req, res) => {
+  const set = req.body;
+  db.query(
+    `INSERT INTO SETS (dayId, setName, notes) VALUES (?, ?, ?)`,
+    [set.dayId, set.setName, set.notes],
+    (err, result) => {
+      if (err) {
+        res.status(409).json(err);
+      }
+
+      db.query(
+        `SELECT * FROM SETS WHERE _id = ?`,
+        [result.insertId],
+        (err_, result_) => {
+          if (err_) {
+            res.status(404).send(err_);
+          }
+          res.status(201).json(result_[0]);
+        }
+      );
+    }
+  );
 };
 
 export const updateSet = async (req, res) => {
   const { id: _id } = req.params;
   const set = req.body;
 
-  if (!mongoose.Types.ObjectId.isValid(_id))
-    return res.status(404).send("No set with that id");
+  db.query(
+    `UPDATE SETS SET setName=?, notes=? WHERE _id = ?`,
+    [set.setName, set.notes, _id],
+    (err, result) => {
+      if (err) {
+        return res.status(404).json(err);
+      }
 
-  const updatedSet = await Set.findByIdAndUpdate(_id, set, { new: true });
-
-  res.json(updatedSet);
-};
-
-export const updateRep = async (req, res) => {
-  const { id: _id } = req.params;
-  const rep = req.body;
-
-  if (!mongoose.Types.ObjectId.isValid(_id))
-    return res.status(404).send("No rep with that id");
-
-  const updatedRep = await Rep.findByIdAndUpdate(_id, rep, { new: true });
-
-  res.json(updatedRep);
-};
-
-export const deleteWorkout = async (req, res) => {
-  const { id: _id } = req.params;
-  
-  if (!mongoose.Types.ObjectId.isValid(_id))
-    return res.status(404).send("No workout with that id");
-
-  await Workout.findByIdAndRemove(_id);
-
-  res.json({ message: "Workout deleted successfully" });
-};
-
-export const deleteWeek = async (req, res) => {
-  const { id: _id } = req.params;
-  if (!mongoose.Types.ObjectId.isValid(_id))
-    return res.status(404).send("No week with that id");
-
-  await Week.findByIdAndRemove(_id);
-
-  res.json({ message: "Week deleted successfully" });
-};
-
-export const deleteDay = async (req, res) => {
-  const { id: _id } = req.params;
-  if (!mongoose.Types.ObjectId.isValid(_id))
-    return res.status(404).send("No day with that id");
-
-  await Day.findByIdAndRemove(_id);
-
-  res.json({ message: "Day deleted successfully" });
+      res.status(200).json(result);
+    }
+  );
 };
 
 export const deleteSet = async (req, res) => {
   const { id: _id } = req.params;
-  if (!mongoose.Types.ObjectId.isValid(_id))
-    return res.status(404).send("No set with that id");
 
-  await Set.findByIdAndRemove(_id);
+  db.query(`DELETE FROM SETS WHERE _id = ?`, [_id], (err) => {
+    if (err) {
+      return res.status(404).json(err);
+    }
+    res.json({ message: "Set deleted successfully" });
+  });
+};
+// ----------------------------------------------------------
 
-  res.json({ message: "Set deleted successfully" });
+// ----------------------------------------------------------
+//                      REPS CONTROLLER
+// ----------------------------------------------------------
+export const getReps = async (req, res) => {
+  db.query("SELECT * FROM REPS", (err, result) => {
+    if (err) {
+      res.status(404).send(err);
+    }
+
+    console.log(result);
+    res.status(200).json(result);
+  });
+};
+
+export const getRepsBySetId = async (req, res) => {
+  const { id: setId } = req.params;
+  db.query(`SELECT * FROM REPS WHERE setId = ?`, [setId], (err, result) => {
+    if (err) {
+      res.status(404).json({ message: err.message });
+    }
+
+    console.log(result);
+    res.status(200).json(result);
+  });
+};
+
+export const createRep = async (req, res) => {
+  const rep = req.body;
+  db.query(
+    `INSERT INTO REPS (setId, weight, numReps) VALUES (?, ?, ?)`,
+    [rep.setId, rep.weight, rep.numReps],
+    (err, result) => {
+      if (err) {
+        res.status(409).json(err);
+      }
+
+      db.query(
+        `SELECT * FROM REPS WHERE _id = ?`,
+        [result.insertId],
+        (err_, result_) => {
+          if (err_) {
+            res.status(404).send(err_);
+          }
+          res.status(201).json(result_[0]);
+        }
+      );
+    }
+  );
+};
+
+export const updateRep = async (req, res) => {
+  const { id: _id } = req.params;
+  const set = req.body;
+
+  db.query(
+    `UPDATE REPS SET weight=?, numReps=? WHERE _id = ?`,
+    [set.weight, set.numReps, _id],
+    (err, result) => {
+      if (err) {
+        return res.status(404).json(err);
+      }
+
+      res.status(200).json(result);
+    }
+  );
 };
 
 export const deleteRep = async (req, res) => {
   const { id: _id } = req.params;
-  if (!mongoose.Types.ObjectId.isValid(_id))
-    return res.status(404).send("No rep with that id");
 
-  await Rep.findByIdAndRemove(_id);
-
-  res.json({ message: "Rep deleted successfully" });
+  db.query(`DELETE FROM REPS WHERE _id = ?`, [_id], (err) => {
+    if (err) {
+      return res.status(404).json(err);
+    }
+    res.json({ message: "Rep deleted successfully" });
+  });
 };
+// ----------------------------------------------------------

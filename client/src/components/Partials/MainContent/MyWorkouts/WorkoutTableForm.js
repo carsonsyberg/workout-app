@@ -8,8 +8,10 @@ const WorkoutTableForm = ({ setAddingWorkout }) => {
   const [workoutNameChanged, setWorkoutNameChanged] = useState(false);
 
   const [workoutData, setWorkoutData] = useState({
+    userId: 1,
     workoutName: "Workout Name",
     isDefault: false,
+    description: "Some description...",
   });
 
   const dispatch = useDispatch();
@@ -19,7 +21,12 @@ const WorkoutTableForm = ({ setAddingWorkout }) => {
 
     dispatch(createWorkout(workoutData));
 
-    setWorkoutData({ isDefault: false, workoutName: "" });
+    setWorkoutData({
+      userId: 1,
+      isDefault: false,
+      workoutName: "",
+      description: "Some description...",
+    });
     setAddingWorkout(false);
   };
 

@@ -7,6 +7,7 @@
 
 .currWorkout > h1 {
   font-weight: lighter;
+  padding-top: 0.5em;
 }
 
 .currWorkout > hr {

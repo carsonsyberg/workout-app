@@ -1,0 +1,107 @@
+.editWeek {
+  font-family: inherit;
+  background-color: #f0f0f0;
+  border-bottom: 1px solid #b3b3b3;
+}
+
+.editWeek > h1 {
+  padding-top: 0.5em;
+  font-weight: lighter;
+  text-align: center;
+}
+
+.editWeek > hr {
+  width: 25em;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0.5em;
+}
+
+.editWeek > .daySelector {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 0.5em;
+  padding-top: 0.5em;
+}
+
+.editWeek > .daySelector > h2 {
+  font-weight: lighter;
+}
+
+.editWeek > .daySelector > img {
+  margin-right: 4em;
+  margin-left: 4em;
+  padding: 0.5em;
+}
+
+.editWeek > .daySelector > img:hover,
+.editWeek > .daySelector > img:focus {
+  background-color: white;
+}
+
+.setTables .addSetButton {
+  width: 25rem;
+  border: 1px solid #b3b3b3;
+  border-top: none;
+  background-color: white;
+  font-size: medium;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  text-align: left;
+  margin-bottom: 2.75rem;
+  text-align: center;
+}
+
+.setTables .addSetButton:hover,
+.setTables .addSetButton:focus {
+  background-color: #e2e2e2;
+}
+
+.setTables {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.addSetForm {
+  margin-top: 2.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.addSetForm > input {
+  font-size: x-large;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  border: 1px solid #b3b3b3;
+  text-align: left;
+  padding-left: 0.5em;
+  color: #b3b3b3;
+}
+
+.addSetForm > .changedInput {
+  color: black;
+}
+
+.setTables > .returnButton {
+  background-color: #e2e2e2;
+  font-size: large;
+  display: block;
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  margin-top: 2.75rem;
+  border: 1px solid #b3b3b3;
+  padding-top: 0.8em;
+  padding-bottom: 0.8em;
+  margin-bottom: 2.75rem;
+}
+
+.setTables > .returnButton:hover,
+.setTables > .returnButton:focus {
+  background: #cce5ff;
+}

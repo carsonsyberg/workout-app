@@ -29,11 +29,25 @@
   margin-left: 0.75em;
 }
 
+.editWorkoutRow > .dayOfWeekButton {
+  width: 100%;
+  font: inherit;
+  border-right: 1px solid #b3b3b3;
+}
+
+.editWorkoutRow > .deleteButton {
+  border-left: 1px solid #b3b3b3;
+}
+
+.editWorkoutRow > .dayOfWeekButton:hover,
+.editWorkoutRow > .dayOfWeekButton:focus {
+  background-color: #e2e2e2;
+}
+
 .editWorkoutRow > button {
   height: 100%;
   background-color: inherit;
   border: none;
-  border-left: 1px solid #b3b3b3;
 }
 
 .editWorkoutRow > button:hover,
@@ -43,7 +57,7 @@
 
 .editWorkoutRow > button > img {
   padding: 1em;
-  height: 1.5em;
+  height: 1em;
 }
 
 .editWorkoutButton > button {

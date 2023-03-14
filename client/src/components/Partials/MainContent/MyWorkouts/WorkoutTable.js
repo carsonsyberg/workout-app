@@ -19,32 +19,7 @@ const WorkoutTable = ({ workout, setEditingWorkout }) => {
   return (
     <div className={classes.workoutTable}>
       <h2>{workout.workoutName}</h2>
-      <div className={classes.workoutRow}>
-        <div className={classes.row}>
-          <div className={classes.leftCol}>
-            <p>Weeks</p>
-          </div>
-          <div className={classes.rightCol}>
-            <p>{workout.numWeeks}</p>
-          </div>
-        </div>
-        <div className={classes.row}>
-          <div className={classes.leftCol}>
-            <p>Days</p>
-          </div>
-          <div className={classes.rightCol}>
-            <p>{workout.numDays}</p>
-          </div>
-        </div>
-        <div className={classes.row}>
-          <div className={classes.leftCol}>
-            <p>Sets</p>
-          </div>
-          <div className={classes.rightCol}>
-            <p>{workout.numSets}</p>
-          </div>
-        </div>
-      </div>
+      <textarea value={workout.description} className={classes.description} />
       <button onClick={() => setEditingWorkout(workout._id)}>
         Edit Workout
       </button>

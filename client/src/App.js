@@ -3,7 +3,13 @@ import classes from "./App.module.css";
 
 import { useDispatch } from "react-redux";
 
-import { getWorkouts, getWeeks, getDays, getSets, getReps } from "./actions/workouts";
+import {
+  getWorkouts,
+  getWeeks,
+  getDays,
+  getSets,
+  getReps,
+} from "./actions/workouts";
 
 import NavBar from "./components/Partials/NavBar/NavBar";
 import MainContent from "./components/Partials/MainContent/MainContent";

@@ -1,7 +1,7 @@
 .workoutTable,
 .workoutTableForm {
   display: grid;
-  grid-template-rows: 1fr 3fr 1fr 1fr;
+  grid-template-rows: 1fr 2fr 1fr 1fr;
   border: 1px solid #b3b3b3;
   width: 25em;
 }
@@ -11,7 +11,7 @@
 }
 
 .workoutTableForm {
-  grid-template-rows: 1fr 1fr 3fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 2fr 1fr 1fr;
   margin-top: 2.75rem;
   margin-bottom: 2.75rem;
 }
@@ -32,7 +32,6 @@
   font-weight: lighter;
 }
 
-.workoutTable > input,
 .workoutTableForm > input {
   border: none;
   border-bottom: 1px solid #b3b3b3;
@@ -40,6 +39,16 @@
   padding-top: 0.35em;
   padding-bottom: 0.35em;
   text-align: center;
+}
+
+.workoutTable > .description, .workoutTableForm > .description {
+  border: none;
+  border-bottom: none;
+  font-size: large;
+  padding-left: 0.5em;
+  text-align: left;
+  padding-bottom: 3em;
+  padding-top: 0.5em;
 }
 
 .workoutTable > button,

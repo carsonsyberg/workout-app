@@ -27,20 +27,20 @@ export const updateWorkout = (id, workout) => async (dispatch) => {
   try {
     const { data } = await api.updateWorkout(id, workout);
 
-    dispatch({ type: 'UPDATE_WORKOUT', payload: data });
+    dispatch({ type: "UPDATE_WORKOUT", payload: data });
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 export const deleteWorkout = (id) => async (dispatch) => {
   try {
     await api.deleteWorkout(id);
-    dispatch({ type: 'DELETE_WORKOUT', payload: id });
+    dispatch({ type: "DELETE_WORKOUT", payload: id });
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 /***********************************************************
  *                      Week Actions
@@ -76,20 +76,20 @@ export const updateWeek = (id, week) => async (dispatch) => {
   try {
     const { data } = await api.updateWeek(id, week);
 
-    dispatch({ type: 'UPDATE_WEEK', payload: data });
+    dispatch({ type: "UPDATE_WEEK", payload: data });
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 export const deleteWeek = (id) => async (dispatch) => {
   try {
     await api.deleteWeek(id);
-    dispatch({ type: 'DELETE_WEEK', payload: id });
+    dispatch({ type: "DELETE_WEEK", payload: id });
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 /***********************************************************
  *                      Day Actions
@@ -97,6 +97,24 @@ export const deleteWeek = (id) => async (dispatch) => {
 export const getDays = () => async (dispatch) => {
   try {
     const { data } = await api.fetchDays();
+    dispatch({ type: "FETCH_ALL_DAYS", payload: data });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const getDaysByWorkoutId = (id) => async (dispatch) => {
+  try {
+    const { data } = await api.fetchDaysByWorkoutId(id);
+    dispatch({ type: "FETCH_ALL_DAYS", payload: data });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const getDaysByWeekId = (id) => async (dispatch) => {
+  try {
+    const { data } = await api.fetchDaysByWeekId(id);
     dispatch({ type: "FETCH_ALL_DAYS", payload: data });
   } catch (error) {
     console.log(error.message);
@@ -116,20 +134,20 @@ export const updateDay = (id, day) => async (dispatch) => {
   try {
     const { data } = await api.updateDay(id, day);
 
-    dispatch({ type: 'UPDATE_DAY', payload: data });
+    dispatch({ type: "UPDATE_DAY", payload: data });
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 export const deleteDay = (id) => async (dispatch) => {
   try {
     await api.deleteDay(id);
-    dispatch({ type: 'DELETE_DAY', payload: id });
+    dispatch({ type: "DELETE_DAY", payload: id });
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 /***********************************************************
  *                      Set Actions
@@ -137,6 +155,15 @@ export const deleteDay = (id) => async (dispatch) => {
 export const getSets = () => async (dispatch) => {
   try {
     const { data } = await api.fetchSets();
+    dispatch({ type: "FETCH_ALL_SETS", payload: data });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const getSetsByDayId = (id) => async (dispatch) => {
+  try {
+    const { data } = await api.fetchSetsByDayId(id);
     dispatch({ type: "FETCH_ALL_SETS", payload: data });
   } catch (error) {
     console.log(error.message);
@@ -156,20 +183,20 @@ export const updateSet = (id, set) => async (dispatch) => {
   try {
     const { data } = await api.updateSet(id, set);
 
-    dispatch({ type: 'UPDATE_SET', payload: data });
+    dispatch({ type: "UPDATE_SET", payload: data });
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 export const deleteSet = (id) => async (dispatch) => {
   try {
     await api.deleteSet(id);
-    dispatch({ type: 'DELETE_SET', payload: id });
+    dispatch({ type: "DELETE_SET", payload: id });
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 /***********************************************************
  *                      Rep Actions
@@ -177,6 +204,24 @@ export const deleteSet = (id) => async (dispatch) => {
 export const getReps = () => async (dispatch) => {
   try {
     const { data } = await api.fetchReps();
+    dispatch({ type: "FETCH_ALL_REPS", payload: data });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const getRepsBySetId = (id) => async (dispatch) => {
+  try {
+    const { data } = await api.fetchRepsBySetId(id);
+    dispatch({ type: "FETCH_ALL_REPS", payload: data });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const getRepsByDayId = (id) => async (dispatch) => {
+  try {
+    const { data } = await api.fetchRepsByDayId(id);
     dispatch({ type: "FETCH_ALL_REPS", payload: data });
   } catch (error) {
     console.log(error.message);
@@ -196,17 +241,17 @@ export const updateRep = (id, rep) => async (dispatch) => {
   try {
     const { data } = await api.updateRep(id, rep);
 
-    dispatch({ type: 'UPDATE_REP', payload: data });
+    dispatch({ type: "UPDATE_REP", payload: data });
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 export const deleteRep = (id) => async (dispatch) => {
   try {
     await api.deleteRep(id);
-    dispatch({ type: 'DELETE_REP', payload: id });
+    dispatch({ type: "DELETE_REP", payload: id });
   } catch (error) {
     console.log(error);
   }
-}
+};

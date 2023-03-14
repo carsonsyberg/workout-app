@@ -1,6 +1,7 @@
 import express from "express";
 import {
   getRepsBySetId,
+  getRepsByDayId,
   getReps,
   createRep,
   updateRep,
@@ -15,6 +16,7 @@ import {
 } from "../controllers/workouts.js";
 import {
   getDaysByWeekId,
+  getDaysByWorkoutId,
   getDays,
   createDay,
   updateDay,
@@ -62,6 +64,7 @@ router.patch("/weeks/:id", updateWeek);
 router.delete("/weeks/:id", deleteWeek);
 
 router.get("/days", getDays);
+router.get("/days/workout/:id", getDaysByWorkoutId);
 router.get("/days/:id", getDaysByWeekId);
 router.post("/days", createDay);
 router.patch("/days/:id", updateDay);
@@ -74,6 +77,7 @@ router.patch("/sets/:id", updateSet);
 router.delete("/sets/:id", deleteSet);
 
 router.get("/reps", getReps);
+router.get("/reps/day/:id", getRepsByDayId);
 router.get("/reps/:id", getRepsBySetId);
 router.post("/reps", createRep);
 router.patch("/reps/:id", updateRep);

@@ -181,6 +181,42 @@ export const getDays = async (req, res) => {
     res.status(200).json(result);
   });
 };
+
+export const getDaysByWorkoutId = async (req, res) => {
+  const { id: workoutId } = req.params;
+
+  console.log("GETTING DAYS BY WORKOUTID");
+  const weekIds = [];
+  db.query(
+    "SELECT _id FROM WEEKS WHERE workoutId = ?",
+    [workoutId],
+    (err, result) => {
+      if (err) {
+        res.status(404).send(err);
+      }
+
+      result.map((week) => weekIds.push(week._id));
+
+      if (weekIds.length != 0) {
+        const getDayByWorkoutQuery =
+          "SELECT * FROM DAYS WHERE weekId =" +
+          " ? OR weekId =".repeat(weekIds.length - 1) +
+          " ?";
+
+        db.query(getDayByWorkoutQuery, weekIds, (err, result) => {
+          if (err) {
+            res.status(404).send(err);
+          }
+
+          res.status(200).json(result);
+        });
+      } else {
+        res.status(200).json([]);
+      }
+    }
+  );
+};
+
 export const getDaysByWeekId = async (req, res) => {
   const { id: weekId } = req.params;
   db.query(`SELECT * FROM DAYS WHERE weekId = ?`, [weekId], (err, result) => {
@@ -348,6 +384,36 @@ export const getRepsBySetId = async (req, res) => {
 
     console.log(result);
     res.status(200).json(result);
+  });
+};
+
+export const getRepsByDayId = async (req, res) => {
+  const { id: dayId } = req.params;
+
+  console.log("GETTING REPS BY DAYID");
+  const setIds = [];
+  db.query("SELECT _id FROM SETS WHERE dayId = ?", [dayId], (err, result) => {
+    if (err) {
+      res.status(404).send(err);
+    }
+
+    if (result.length != 0) {
+      result.map((set) => setIds.push(set._id));
+      const getRepByDayQuery =
+        "SELECT * FROM REPS WHERE setId =" +
+        " ? OR setId =".repeat(setIds.length - 1) +
+        " ?";
+
+      db.query(getRepByDayQuery, dayIds, (err, result) => {
+        if (err) {
+          res.status(404).send(err);
+        }
+
+        res.status(200).json(result);
+      });
+    } else {
+      res.status(200).json([]);
+    }
   });
 };
 

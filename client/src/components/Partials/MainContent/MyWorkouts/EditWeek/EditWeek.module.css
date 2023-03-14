@@ -1,0 +1,41 @@
+.editWeek {
+    font-family: inherit;
+    background-color:  #F0F0F0;
+    border-bottom: 1px solid #b3b3b3;
+}
+
+.editWeek > h1 {
+    padding-top: 0.5em;
+    font-weight: lighter;
+    text-align: center;
+}
+
+.editWeek > hr {
+    width: 25em;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0.5em;
+}
+
+.editWeek > .daySelector {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 0.5em;
+    padding-top: 0.5em;
+}
+
+.editWeek > .daySelector > h2 {
+    font-weight: lighter;
+}
+
+.editWeek > .daySelector > img {
+    margin-right: 4em;
+    margin-left: 4em;
+    padding: 0.5em;
+}
+
+.editWeek > .daySelector > img:hover, .editWeek > .daySelector > img:focus {
+    background-color: white;
+}

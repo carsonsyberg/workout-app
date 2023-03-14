@@ -1,16 +1,17 @@
 .editWorkout {
-    text-align: center;
+  text-align: center;
 }
 
 .editWorkoutHeader > h1 {
-    font-weight: lighter;
+  padding-top: 0.5em;
+  font-weight: lighter;
 }
 
 .editWorkoutHeader > hr {
-    width: 25em;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 0.5em;
+  width: 25em;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0.5em;
 }
 
 .editWorkout > button {
@@ -32,4 +33,18 @@
 .editWorkout > button:hover,
 .editWorkout > button:focus {
   background-color: #e2e2e2;
+}
+
+.editWorkout > .returnButton {
+  background-color: #e2e2e2;
+  font-size: large;
+  display: block;
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.editWorkout > .returnButton:hover, .editWorkout > .returnButton:focus {
+  background: #cce5ff;
 }

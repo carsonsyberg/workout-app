@@ -21,6 +21,9 @@ const MyWorkouts = () => {
 
   return editingWorkout ? (
     <EditWorkout
+      setEditingWorkout={setEditingWorkout}
+      editingWeek={editingWeek}
+      setEditingWeek={setEditingWeek}
       workout={workouts.filter((workout) => workout._id === editingWorkout)[0]}
     />
   ) : (

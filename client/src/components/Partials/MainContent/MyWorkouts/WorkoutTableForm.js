@@ -6,6 +6,7 @@ import classes from "./WorkoutTable.module.css";
 const WorkoutTableForm = ({ setAddingWorkout }) => {
   const [isCurrent, setIsCurrent] = useState(false);
   const [workoutNameChanged, setWorkoutNameChanged] = useState(false);
+  const [workoutDescChanged, setWorkoutDescChanged] = useState(false);
 
   const [workoutData, setWorkoutData] = useState({
     userId: 1,
@@ -67,32 +68,20 @@ const WorkoutTableForm = ({ setAddingWorkout }) => {
           Unfavorite Workout
         </button>
       )}
-      <div className={classes.workoutRow}>
-        <div className={classes.row}>
-          <div className={classes.leftCol}>
-            <p>Weeks</p>
-          </div>
-          <div className={classes.rightCol}>
-            <p>0</p>
-          </div>
-        </div>
-        <div className={classes.row}>
-          <div className={classes.leftCol}>
-            <p>Days</p>
-          </div>
-          <div className={classes.rightCol}>
-            <p>0</p>
-          </div>
-        </div>
-        <div className={classes.row}>
-          <div className={classes.leftCol}>
-            <p>Sets</p>
-          </div>
-          <div className={classes.rightCol}>
-            <p>0</p>
-          </div>
-        </div>
-      </div>
+      <textarea
+        value={workoutData.description}
+        className={`${classes.description} ${
+          workoutDescChanged ? classes.changedInput : classes.originalInput
+        }`}
+        onClick={() => {
+          if (!workoutDescChanged)
+            setWorkoutData({ ...workoutData, description: "" });
+        }}
+        onChange={(e) => {
+          setWorkoutData({ ...workoutData, description: e.target.value });
+          setWorkoutDescChanged(true);
+        }}
+      />
       <button onClick={submitHandler}>Save Workout</button>
       <button
         onClick={() => {

@@ -3,23 +3,34 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getSetsByDayId,
   getRepsByDayId,
+  createSet,
 } from "../../../../../actions/workouts";
 import classes from "./EditWeek.module.css";
+import SetTable from "./SetTable/SetTable";
 
-const EditWeek = ({ days, week, workout }) => {
+// TODO: allow users to change order of sets
+
+const EditWeek = ({ setEditingWeek, days, week, workout }) => {
   const dispatch = useDispatch();
   // TODO: set shown day to the day of the workout that matches the current day of the week
-  const [shownDay, setShownDay] = useState(
-    ...days.filter((day) => day.dayOfWeek === "Monday")
-  );
-  const [shownDayIndex, setShownDayIndex] = useState(
-    days.findIndex((day) => day.dayOfWeek === "Monday")
-  );
+  const [shownDayIndex, setShownDayIndex] = useState(0);
+  const [setData, setSetData] = useState({
+    dayId: days[shownDayIndex]._id,
+    setName: "Set Name",
+    notes: "",
+  });
+  const [changedSetData, setChangedSetData] = useState(false);
 
   useEffect(() => {
-    dispatch(getSetsByDayId(shownDay._id));
-    dispatch(getRepsByDayId(shownDay._id));
-  }, [shownDay._id, dispatch]);
+    setSetData({
+      dayId: days[shownDayIndex]._id,
+      setName: "Set Name",
+      notes: "",
+    });
+    setChangedSetData(false);
+    dispatch(getSetsByDayId(days[shownDayIndex]._id));
+    dispatch(getRepsByDayId(days[shownDayIndex]._id));
+  }, [shownDayIndex, dispatch]);
 
   const sets = useSelector((state) => {
     return state.sets;
@@ -30,10 +41,8 @@ const EditWeek = ({ days, week, workout }) => {
   });
 
   const shownDayUpdateHandler = (leftOrRight) => {
-    console.log("LEFT OR RIGHT:", leftOrRight);
     if (leftOrRight === "left") {
       setShownDayIndex((prevState) => {
-        console.log("PREV INDEX:", prevState);
         if (prevState === 0) {
           prevState = days.length - 1; // wrap around to last index in days array
         } else {
@@ -51,29 +60,69 @@ const EditWeek = ({ days, week, workout }) => {
         return prevState;
       });
     }
-    console.log("INDEX:", shownDayIndex)
-    console.log("SET SHOWN DAY:", days[shownDayIndex]);
-    setShownDay(days[shownDayIndex]);
+  };
+
+  const addSetHandler = () => {
+    setSetData({
+      dayId: days[shownDayIndex]._id,
+      setName: "Set Name",
+      notes: "",
+    });
+    setChangedSetData(false);
+    dispatch(createSet(setData));
   };
 
   return (
-    <div className={classes.editWeek}>
-      <h1>{workout.workoutName}</h1>
-      <hr />
-      <div className={classes.daySelector}>
-        <img
-          src="https://i.imgur.com/7nIxy8r.png"
-          alt="left arrow"
-          onClick={() => shownDayUpdateHandler("left")}
-        />
-        <h2>{`${shownDay.dayOfWeek}, ${week.weekName}`}</h2>
-        <img
-          src="https://i.imgur.com/QPOuCc8.png"
-          alt="right arrow"
-          onClick={() => shownDayUpdateHandler("right")}
-        />
+    <>
+      <div className={classes.editWeek}>
+        <h1>{workout.workoutName}</h1>
+        <hr />
+        <div className={classes.daySelector}>
+          <img
+            src="https://i.imgur.com/7nIxy8r.png"
+            alt="left arrow"
+            onClick={() => shownDayUpdateHandler("left")}
+          />
+          <h2>{`${days[shownDayIndex].dayOfWeek}, ${week.weekName}`}</h2>
+          <img
+            src="https://i.imgur.com/QPOuCc8.png"
+            alt="right arrow"
+            onClick={() => shownDayUpdateHandler("right")}
+          />
+        </div>
       </div>
-    </div>
+      <div className={classes.setTables}>
+        {sets.map((set) => {
+          return <SetTable key={set._id} set={set} reps={reps} />;
+        })}
+        <div className={classes.addSetForm}>
+          <input
+            className={
+              changedSetData ? classes.changedInput : classes.regularInput
+            }
+            type="text"
+            value={setData.setName}
+            onChange={(e) => {
+              setChangedSetData(true);
+              setSetData({ ...setData, setName: e.target.value });
+            }}
+            onClick={() => setSetData({ ...setData, setName: "" })}
+          />
+          <button
+            className={classes.addSetButton}
+            onClick={() => addSetHandler()}
+          >
+            Add Set
+          </button>
+        </div>
+        <button
+          className={classes.returnButton}
+          onClick={() => setEditingWeek(false)}
+        >
+          Return to Edit Weeks
+        </button>
+      </div>
+    </>
   );
 };
 

@@ -9,12 +9,10 @@ import EditWorkoutTable from "./EditWorkoutTable";
 import classes from "./EditWorkout.module.css";
 import EditWeek from "../EditWeek/EditWeek";
 
-// INFO: In the future, if you want to display a bunch of tables AND the child-tables of those tables on the same screen
-//       you need to get all the tables AND get all the child tables at the same time, then filter down the child tables into the parents
+// TODO: Allow users to edit week name and auto generate week 1 / 2 / etc for default
+// TODO: Allow users to rearrange week order 
 
-const EditWorkout = ({ workout }) => {
-  const [editingWeek, setEditingWeek] = useState(false);
-
+const EditWorkout = ({ setEditingWorkout, workout, editingWeek, setEditingWeek }) => {
   const [weekData, setWeekData] = useState({
     weekName: "Week X",
     workoutId: workout._id,
@@ -41,6 +39,7 @@ const EditWorkout = ({ workout }) => {
 
   return editingWeek ? (
     <EditWeek
+      setEditingWeek={setEditingWeek}
       days={days.filter((day) => day.weekId === editingWeek)}
       week={weeks.filter((week) => week._id === editingWeek)[0]}
       workout={workout}
@@ -62,6 +61,7 @@ const EditWorkout = ({ workout }) => {
       <button onClick={() => addWeekHandler()}>
         <p>Add Week</p>
       </button>
+      <button className={classes.returnButton} onClick={() => setEditingWorkout(false)}>Return to My Workouts</button>
     </div>
   );
 };

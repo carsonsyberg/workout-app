@@ -390,7 +390,6 @@ export const getRepsBySetId = async (req, res) => {
 export const getRepsByDayId = async (req, res) => {
   const { id: dayId } = req.params;
 
-  console.log("GETTING REPS BY DAYID");
   const setIds = [];
   db.query("SELECT _id FROM SETS WHERE dayId = ?", [dayId], (err, result) => {
     if (err) {
@@ -399,17 +398,18 @@ export const getRepsByDayId = async (req, res) => {
 
     if (result.length != 0) {
       result.map((set) => setIds.push(set._id));
+
       const getRepByDayQuery =
         "SELECT * FROM REPS WHERE setId =" +
         " ? OR setId =".repeat(setIds.length - 1) +
         " ?";
 
-      db.query(getRepByDayQuery, dayIds, (err, result) => {
+      db.query(getRepByDayQuery, setIds, (err, result2) => {
         if (err) {
           res.status(404).send(err);
         }
 
-        res.status(200).json(result);
+        res.status(200).json(result2);
       });
     } else {
       res.status(200).json([]);

@@ -9,11 +9,14 @@
 }
 
 .weekName {
-  padding-top: 0.35em;
-  padding-bottom: 0.35em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
   font-weight: lighter;
   margin-top: auto;
   margin-bottom: auto;
+  border: none;
+  font-size: x-large;
+  text-align: center;
 }
 
 .editWorkoutRow {

@@ -10,7 +10,14 @@ import SetTable from "./SetTable/SetTable";
 
 // TODO: allow users to change order of sets
 
-const EditWeek = ({ setEditingWeek, days, week, workout }) => {
+const EditWeek = ({
+  pageState,
+  setPageState,
+  setEditingWeek,
+  days,
+  week,
+  workout,
+}) => {
   const dispatch = useDispatch();
   // TODO: set shown day to the day of the workout that matches the current day of the week
   const [shownDayIndex, setShownDayIndex] = useState(0);
@@ -25,7 +32,7 @@ const EditWeek = ({ setEditingWeek, days, week, workout }) => {
     setSetData({
       dayId: days[shownDayIndex]._id,
       setName: "Set Name",
-      notes: "",
+      notes: "Enter notes here",
     });
     setChangedSetData(false);
     dispatch(getSetsByDayId(days[shownDayIndex]._id));
@@ -66,7 +73,7 @@ const EditWeek = ({ setEditingWeek, days, week, workout }) => {
     setSetData({
       dayId: days[shownDayIndex]._id,
       setName: "Set Name",
-      notes: "",
+      notes: "Enter notes here",
     });
     setChangedSetData(false);
     dispatch(createSet(setData));
@@ -106,7 +113,10 @@ const EditWeek = ({ setEditingWeek, days, week, workout }) => {
               setChangedSetData(true);
               setSetData({ ...setData, setName: e.target.value });
             }}
-            onClick={() => setSetData({ ...setData, setName: "" })}
+            onClick={() => {
+              setChangedSetData(true);
+              setSetData({ ...setData, setName: "" });
+            }}
           />
           <button
             className={classes.addSetButton}
@@ -114,10 +124,25 @@ const EditWeek = ({ setEditingWeek, days, week, workout }) => {
           >
             Add Set
           </button>
+          {changedSetData && (
+            <button
+              className={classes.cancelAddSetButton}
+              onClick={() => {
+                setSetData({
+                  dayId: days[shownDayIndex]._id,
+                  setName: "Set Name",
+                  notes: "Enter notes here",
+                });
+                setChangedSetData(false);
+              }}
+            >
+              Cancel
+            </button>
+          )}
         </div>
         <button
           className={classes.returnButton}
-          onClick={() => setEditingWeek(false)}
+          onClick={() => setPageState("EditWorkout")}
         >
           Return to Edit Weeks
         </button>

@@ -10,14 +10,16 @@ import classes from "./EditWorkout.module.css";
 import EditWeek from "../EditWeek/EditWeek";
 
 // TODO: Allow users to edit week name and auto generate week 1 / 2 / etc for default
-// TODO: Allow users to rearrange week order 
+// TODO: Allow users to rearrange week order
 
-const EditWorkout = ({ setEditingWorkout, workout, editingWeek, setEditingWeek }) => {
-  const [weekData, setWeekData] = useState({
-    weekName: "Week X",
-    workoutId: workout._id,
-  });
-
+const EditWorkout = ({
+  pageState,
+  setPageState,
+  setEditingWorkout,
+  workout,
+  editingWeek,
+  setEditingWeek,
+}) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -29,6 +31,12 @@ const EditWorkout = ({ setEditingWorkout, workout, editingWeek, setEditingWeek }
     return state.weeks;
   });
 
+  const [weekData, setWeekData] = useState({
+    weekName: "Week Name",
+    workoutId: workout._id,
+  });
+  const [changedWeekData, setChangedWeekData] = useState(false);
+
   const days = useSelector((state) => {
     return state.days;
   });
@@ -37,8 +45,10 @@ const EditWorkout = ({ setEditingWorkout, workout, editingWeek, setEditingWeek }
     dispatch(createWeek(weekData));
   };
 
-  return editingWeek ? (
+  return pageState === "EditWeek" ? (
     <EditWeek
+      pageState={pageState}
+      setPageState={setPageState}
       setEditingWeek={setEditingWeek}
       days={days.filter((day) => day.weekId === editingWeek)}
       week={weeks.filter((week) => week._id === editingWeek)[0]}
@@ -52,16 +62,53 @@ const EditWorkout = ({ setEditingWorkout, workout, editingWeek, setEditingWeek }
       </div>
       {weeks.map((week) => (
         <EditWorkoutTable
+          pageState={pageState}
+          setPageState={setPageState}
           days={days.filter((day) => day.weekId === week._id)}
           setEditingWeek={setEditingWeek}
           key={week._id}
           week={week}
         />
       ))}
-      <button onClick={() => addWeekHandler()}>
-        <p>Add Week</p>
+      <div className={classes.addWeekForm}>
+        <input
+          className={
+            changedWeekData ? classes.changedInput : classes.regularInput
+          }
+          type="text"
+          value={weekData.weekName}
+          onChange={(e) => {
+            setChangedWeekData(true);
+            setWeekData({ ...weekData, weekName: e.target.value });
+          }}
+          onClick={() => {
+            setChangedWeekData(true);
+            setWeekData({ ...weekData, weekName: "" });
+          }}
+        />
+        <button onClick={() => addWeekHandler()}>
+          <p>Add Week</p>
+        </button>
+        {changedWeekData && (
+          <button
+            className={classes.cancelAddSetButton}
+            onClick={() => {
+              setWeekData({
+                weekName: "Week Name",
+              });
+              setChangedWeekData(false);
+            }}
+          >
+            Cancel
+          </button>
+        )}
+      </div>
+      <button
+        className={classes.returnButton}
+        onClick={() => setPageState("MyWorkouts")}
+      >
+        Return to My Workouts
       </button>
-      <button className={classes.returnButton} onClick={() => setEditingWorkout(false)}>Return to My Workouts</button>
     </div>
   );
 };

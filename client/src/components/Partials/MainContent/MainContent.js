@@ -15,7 +15,11 @@ const MainContent = ({ pageState, setPageState }) => {
       case "Login":
         return <Login />;
       case "MyWorkouts":
-        return <MyWorkouts />;
+        return <MyWorkouts pageState={pageState} setPageState={setPageState} />;
+      case "EditWorkout":
+        return <MyWorkouts pageState={pageState} setPageState={setPageState} />;
+      case "EditWeek":
+        return <MyWorkouts pageState={pageState} setPageState={setPageState} />;
       case "PopWorkouts":
         return <PopularWorkouts />;
       case "Settings":

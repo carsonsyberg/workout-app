@@ -31,12 +31,21 @@
 }
 
 .setTable > input {
-  padding-left: 1em;
-  color: #b3b3b3;
+  border-top: none;
+  padding-left: 0.5em;
+  font-size: x-large;
 }
 
+.setTable > .notes,
 .setTable > .changedNotes {
-  color: black;
+  grid-row: span 2;
+  border: none;
+  border-top: 1px solid #b3b3b3;
+  font-size: large;
+  padding-left: 0.5em;
+  text-align: left;
+  padding-bottom: 3em;
+  padding-top: 0.5em;
 }
 
 .editWorkoutButton > button {
@@ -101,6 +110,14 @@
   border: none;
   width: 20%;
   text-align: right;
+}
+
+.addingRep > .changedInput {
+  color: black;
+}
+
+.addingRep > .originalInput {
+  color: #b3b3b3;
 }
 
 .addingRep > label {
@@ -178,4 +195,16 @@
 
 .repRow > .cancelButton {
   border-right: none;
+}
+
+.repRowChanged > input {
+  width: 20%;
+}
+
+.repRowChanged > label {
+  width: 15%;
+}
+
+.repRowChanged > button {
+  width: 15%;
 }

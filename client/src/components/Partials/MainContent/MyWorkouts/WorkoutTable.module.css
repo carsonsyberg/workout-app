@@ -6,6 +6,10 @@
   width: 25em;
 }
 
+.workoutTableChanged {
+  grid-template-rows: 1fr 2fr 1fr 1fr 1fr;
+}
+
 .workoutTable {
   margin-top: 2.75rem;
 }
@@ -24,15 +28,7 @@
   color: inherit;
 }
 
-.workoutTable > h2,
-.workoutTableForm > .h2 {
-  padding-top: 0.35em;
-  padding-bottom: 0.35em;
-  border-bottom: 1px solid #b3b3b3;
-  font-weight: lighter;
-}
-
-.workoutTableForm > input {
+.workoutTable > input, .workoutTableForm > input {
   border: none;
   border-bottom: 1px solid #b3b3b3;
   font-size: x-large;

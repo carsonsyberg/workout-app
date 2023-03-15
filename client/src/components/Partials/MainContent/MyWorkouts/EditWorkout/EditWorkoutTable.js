@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { updateWeek } from "../../../../../actions/workouts";
 import {
   deleteWeek,
   createDay,
@@ -10,9 +11,17 @@ import classes from "./EditWorkoutTable.module.css";
 
 // TODO: need to get days by week ID then map days into editWorkoutRows
 
-const EditWorkoutTable = ({ days, setEditingWeek, week }) => {
+const EditWorkoutTable = ({
+  pageState,
+  setPageState,
+  days,
+  setEditingWeek,
+  week,
+}) => {
   const [confirmingDelete, setConfirmingDelete] = useState(false);
   const [addingDay, setAddingDay] = useState(false);
+  const [weekData, setWeekData] = useState({ weekName: week.weekName });
+  const [weekDataChanged, setWeekDataChanged] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -32,9 +41,41 @@ const EditWorkoutTable = ({ days, setEditingWeek, week }) => {
     setAddingDay(false);
   };
 
+  const submitWeekUpdateHandler = () => {
+    dispatch(updateWeek(week._id, weekData));
+    setWeekDataChanged(false);
+  };
+
   return (
     <div className={classes.editWorkoutTable}>
-      <h2 className={classes.weekName}>{week.weekName}</h2>
+      <input
+        className={classes.weekName}
+        value={weekData.weekName}
+        onChange={(e) => {
+          setWeekDataChanged(true);
+          setWeekData({ ...weekData, weekName: e.target.value });
+        }}
+      />
+      {weekDataChanged && (
+        <div className={classes.deleteButtons}>
+          <button
+            className={classes.confirmDeleteButton}
+            onClick={() => submitWeekUpdateHandler()}
+          >
+            Update Week Name
+          </button>
+          <button
+            onClick={() => {
+              setWeekData({
+                weekName: week.weekName,
+              });
+              setWeekDataChanged(false);
+            }}
+          >
+            Cancel
+          </button>
+        </div>
+      )}
       {days.map((day) => {
         return (
           <div key={day._id} className={classes.editWorkoutRow}>
@@ -75,7 +116,14 @@ const EditWorkoutTable = ({ days, setEditingWeek, week }) => {
         </div>
       )}
       <div className={classes.editWorkoutButton}>
-        <button onClick={() => setEditingWeek(week._id)}>Edit Week</button>
+        <button
+          onClick={() => {
+            setEditingWeek(week._id);
+            setPageState("EditWeek");
+          }}
+        >
+          Edit Week
+        </button>
       </div>
       {confirmingDelete ? (
         <div className={classes.deleteButtons}>

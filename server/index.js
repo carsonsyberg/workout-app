@@ -23,6 +23,7 @@ const PORT = process.env.PORT || 5000;
 
 db.connect((err) => {
   if (err) {
+    console.log("DATABASE CONNECTION ERROR8888888888888888888888888888888888888888888888888888888")
     throw err;
   }
 

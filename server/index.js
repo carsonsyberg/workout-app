@@ -18,7 +18,8 @@ export const db = mysql.createConnection({
   password: "346muscle!821?grower",
 });
 
-const PORT = process.env.PORT || 5000;
+// const PORT = process.env.PORT || 443;
+const PORT = 443;
 
 db.connect((err) => {
   if (err) {

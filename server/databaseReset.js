@@ -1,6 +1,21 @@
 import { db } from "./index.js";
 
 export const databaseReset = () => {
+  db.query("DROP DATABASE IF EXISTS workoutappDB", (err) => {
+    if (err) throw err;
+    console.log("Dropped workoutappDB");
+  });
+
+  db.query("CREATE DATABASE workoutappDB", (err) => {
+    if (err) throw err;
+    console.log("created workoutappDB");
+  });
+
+  db.query("USE workoutappDB", (err) => {
+    if (err) throw err;
+    console.log("using workoutappDB");
+  });
+
   db.query("DROP TABLE IF EXISTS REPS", (err) => {
     if (err) throw err;
     console.log("Dropped rep table");

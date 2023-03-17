@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const url = "http://localhost:5000/posts";
-const workoutUrl = "http://localhost:5000/workouts";
-const weekUrl = "http://localhost:5000/weeks";
-const dayUrl = "http://localhost:5000/days";
-const setUrl = "http://localhost:5000/sets";
-const repUrl = "http://localhost:5000/reps";
+const url = "http://http://ec2-3-235-11-171.compute-1.amazonaws.com:5000/posts";
+const workoutUrl = "http://http://ec2-3-235-11-171.compute-1.amazonaws.com:5000/workouts";
+const weekUrl = "http://http://ec2-3-235-11-171.compute-1.amazonaws.com:5000/weeks";
+const dayUrl = "http://http://ec2-3-235-11-171.compute-1.amazonaws.com:5000/days";
+const setUrl = "http://http://ec2-3-235-11-171.compute-1.amazonaws.com:5000/sets";
+const repUrl = "http://http://ec2-3-235-11-171.compute-1.amazonaws.com:5000/reps";
 
 export const fetchPosts = () => axios.get(url);
 export const createPost = (newPost) => axios.post(url, newPost);

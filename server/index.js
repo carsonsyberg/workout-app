@@ -13,10 +13,9 @@ app.use(cors());
 app.use("/", workoutRoutes);
 
 export const db = mysql.createConnection({
-  host: "34.106.0.249",
+  host: "workout-app.ce69noofzlgk.us-east-1.rds.amazonaws.com",
   user: "root",
-  password: "Food5451",
-  database: "workout_app",
+  password: "346muscle!821?grower",
 });
 
 const PORT = process.env.PORT || 5000;
@@ -24,7 +23,7 @@ const PORT = process.env.PORT || 5000;
 db.connect((err) => {
   if (err) {
     console.log("DATABASE CONNECTION ERROR")
-    // throw err;
+    throw err;
   }
 
   console.log("MySql Connected");
@@ -33,4 +32,8 @@ db.connect((err) => {
   });
 });
 
+db.query("USE workoutappDB", (err) => {
+  if (err) throw err;
+  console.log("using workoutappDB");
+});
 // databaseReset();

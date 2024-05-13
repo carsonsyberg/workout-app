@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "p6mqvqL/IRdcivdb6JBHx8Oh8eRgu2gRnmiZCev+56pdOzn3mQxwQSCS9qTBaPBeh2aqmS5kYYR/yd1CZ3eHLQ==",
+  "dgSpecHash": "2JdXK+gwNuvSrAoy3XsEF8+CDmMrr6d13j+z+vSVu1rAlvX478SzxgOKs/V4xUnZ8B8QV5vDOl2zECISNcxRWw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\carso\\OneDrive\\Documents\\Software\\WorkoutApp\\WorkoutApp\\WorkoutApp.csproj",
+  "projectFilePath": "C:\\Users\\carso\\OneDrive\\Documents\\Software\\workout-app-git\\WorkoutApp\\WorkoutApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\carso\\.nuget\\packages\\aspnet.identity.mongodb\\2.0.8\\aspnet.identity.mongodb.2.0.8.nupkg.sha512",
     "C:\\Users\\carso\\.nuget\\packages\\aspnetcore.identity.mongodbcore\\3.1.2\\aspnetcore.identity.mongodbcore.3.1.2.nupkg.sha512",

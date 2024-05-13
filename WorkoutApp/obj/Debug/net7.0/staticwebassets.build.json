@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "LOkTrIMIqE6zcsmtbOYcBcYcfuYvL1UZ33TGvPftg6Y=",
+  "Hash": "NaF9EzTADiR5F82kR8tcyRNp4OM/bnjArp1Mm5wY0FQ=",
   "Source": "WorkoutApp",
   "BasePath": "_content/WorkoutApp",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "WorkoutApp\\wwwroot",
       "Source": "WorkoutApp",
-      "ContentRoot": "C:\\Users\\carso\\OneDrive\\Documents\\Software\\WorkoutApp\\WorkoutApp\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\carso\\OneDrive\\Documents\\Software\\workout-app-git\\WorkoutApp\\wwwroot\\",
       "BasePath": "_content/WorkoutApp",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\carso\\OneDrive\\Documents\\Software\\WorkoutApp\\WorkoutApp\\wwwroot\\favicon.ico",
+      "Identity": "C:\\Users\\carso\\OneDrive\\Documents\\Software\\workout-app-git\\WorkoutApp\\wwwroot\\favicon.ico",
       "SourceId": "WorkoutApp",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\carso\\OneDrive\\Documents\\Software\\WorkoutApp\\WorkoutApp\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\carso\\OneDrive\\Documents\\Software\\workout-app-git\\WorkoutApp\\wwwroot\\",
       "BasePath": "_content/WorkoutApp",
       "RelativePath": "favicon.ico",
       "AssetKind": "All",

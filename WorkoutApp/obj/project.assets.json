@@ -1364,11 +1364,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\carso\\OneDrive\\Documents\\Software\\WorkoutApp\\WorkoutApp\\WorkoutApp.csproj",
+      "projectUniqueName": "C:\\Users\\carso\\OneDrive\\Documents\\Software\\workout-app-git\\WorkoutApp\\WorkoutApp.csproj",
       "projectName": "WorkoutApp",
-      "projectPath": "C:\\Users\\carso\\OneDrive\\Documents\\Software\\WorkoutApp\\WorkoutApp\\WorkoutApp.csproj",
+      "projectPath": "C:\\Users\\carso\\OneDrive\\Documents\\Software\\workout-app-git\\WorkoutApp\\WorkoutApp.csproj",
       "packagesPath": "C:\\Users\\carso\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\carso\\OneDrive\\Documents\\Software\\WorkoutApp\\WorkoutApp\\obj\\",
+      "outputPath": "C:\\Users\\carso\\OneDrive\\Documents\\Software\\workout-app-git\\WorkoutApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\carso\\AppData\\Roaming\\NuGet\\NuGet.Config",

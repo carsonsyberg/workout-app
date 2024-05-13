@@ -1,0 +1,143 @@
+<div class="container">
+    <div class="mx-2 row">
+        <h3 class="text-center workout-detail-header mt-4">
+            My Workouts
+        </h3>
+    </div>
+    <div class="mx-2 col pb-4" *ngIf="!loadingWorkouts">
+        <mat-card class="text-center mt-4 mb-3" *ngIf="workouts.length == 0">
+            <mat-card-content class="py-4">No workouts found.</mat-card-content>
+        </mat-card>
+
+        <!-- <div cdkDropList (cdkDropListDropped)="drop($event)"> -->
+        <!-- <mat-card class="my-4" *ngFor="let workout of workouts; index as i" cdkDrag> -->
+        <mat-card class="my-4" *ngFor="let workout of workouts; index as i">
+            <!-- <div class="example-custom-placeholder my-4" *cdkDragPlaceholder></div> -->
+            <div *ngIf="!editingWorkout || editingWorkout.id != workout.id">
+                <!-- <div class="d-flex justify-content-start">
+                    <mat-icon color="accent" class="material-icons-outlined">star_outline</mat-icon>
+                </div> -->
+                <mat-card-header>
+                    <mat-card-title class="d-flex justify-content-start align-items-center gap-2">
+                        {{workout.name}}
+                    </mat-card-title>
+                    <mat-card-subtitle>{{workout.description}}</mat-card-subtitle>
+                </mat-card-header>
+                <div class="p-3 pt-2 d-flex justify-content-end">
+                    <mat-card-subtitle style="font-size: small;">Created: {{workout.createdAt!.toString().split("-")[1]}}/{{workout.createdAt!.toString().split("-")[2].split("T")[0]}}/{{workout.createdAt!.toString().split("-")[0]}}</mat-card-subtitle>
+                </div>
+                <div class="card-top-spacer"></div>
+                <div class="d-flex justify-content-between">
+                    <mat-card-actions align="start">
+                        <button mat-button *ngIf="workout.id" [routerLink]="['/workout', workout.id]">
+                            <mat-icon class="material-symbols-outlined" color="accent">calendar_month</mat-icon>DETAILS
+                        </button>
+                    </mat-card-actions>
+                    <mat-card-actions align="end" *ngIf="!deletingWorkout || deletingWorkout.id != workout.id ">
+                        <div *ngIf="!workout.isFavorite" class="material-icons-outlined favorite-btn py-1 px-2 d-flex flex-column justify-content-center" (click)="favoriteWorkout(workout)">
+                            <mat-icon color="accent" class="material-icons-outlined">star_outline</mat-icon>
+                        </div>
+                        <div *ngIf="workout.isFavorite" class="favorite-btn py-1 px-2 d-flex flex-column justify-content-center" (click)="unfavoriteWorkout(workout)">
+                            <mat-icon color="accent">star</mat-icon>
+                        </div>
+                        <button mat-button (click)="clickEditingWorkout(workout)">
+                            EDIT
+                        </button>
+                        <button mat-button (click)="workout.id && clickDeletingWorkout(workout)">
+                            DELETE
+                        </button>
+                    </mat-card-actions>
+                    <mat-card-actions align="end" *ngIf="deletingWorkout && deletingWorkout.id === workout.id">
+                        <button mat-button (click)="cancelDeletingWorkout()">
+                            CANCEL
+                        </button>
+                        <button mat-button color="warn" (click)="workout.id && onDeleteWorkout()">
+                            DELETE
+                        </button>
+                    </mat-card-actions>
+                </div>
+            </div>
+            <div *ngIf="editingWorkout && editingWorkout.id === workout.id" #EDIT_CARD>
+                <mat-card-content>
+                    <div #EDIT_CARD_START> </div>
+                    <form [formGroup]="editWorkoutForm">
+                        <mat-form-field color="accent" class="createworkout-field">
+                            <mat-label>Workout Name</mat-label>
+                            <input matInput type="text" formControlName="name">
+                            <button matSuffix mat-icon-button aria-label="Clear">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                        </mat-form-field>
+                        <mat-form-field color="accent" class="createworkout-field">
+                            <mat-label>Workout Description</mat-label>
+                            <textarea matInput type="text" formControlName="description"></textarea>
+                        </mat-form-field>
+                    </form>
+                </mat-card-content>
+                <div class="card-top-spacer"></div>
+                <div class="d-flex justify-content-end">
+                    <mat-card-actions align="end">
+                        <button mat-button (click)="cancelEditingWorkout()">
+                            CANCEL
+                        </button>
+                        <button mat-button color="accent" type="submit" (click)="onEditWorkout()">
+                            SAVE
+                        </button>
+                    </mat-card-actions>
+                </div>
+                <div #EDIT_CARD_END> </div>
+            </div>
+        </mat-card>
+        <!-- </div> -->
+        <mat-card class="my-4 pt-2" *ngIf="creatingWorkout">
+            <mat-card-content>
+                <form [formGroup]="createWorkoutForm">
+                    <mat-form-field color="accent" class="createworkout-field">
+                        <mat-label>Workout Name</mat-label>
+                        <input matInput type="text" formControlName="name" autofocus>
+                        <button matSuffix mat-icon-button aria-label="Clear">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </mat-form-field>
+                    <mat-form-field color="accent" class="createworkout-field">
+                        <mat-label>Workout Description</mat-label>
+                        <textarea matInput type="text" formControlName="description"></textarea>
+                    </mat-form-field>
+                    <div class="d-flex justify-content-between">
+                        <mat-form-field color="accent" class="createworkout-field" style="width: 45%;">
+                            <mat-label>Start date</mat-label>
+                            <input matInput [matDatepicker]="picker" formControlName="startDate">
+                            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field color="accent" class="createworkout-field" style="width: 45%;">
+                            <mat-label>Repeat</mat-label>
+                            <mat-select formControlName="repeatSchedule">
+                                <mat-option [value]="1">Weekly</mat-option>
+                                <mat-option [value]="2">2 Weeks</mat-option>
+                                <mat-option [value]="3">3 Weeks</mat-option>
+                                <mat-option [value]="4">4 Weeks</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </form>
+            </mat-card-content>
+            <div class="card-top-spacer"></div>
+            <div class="d-flex justify-content-end">
+                <mat-card-actions align="end">
+                    <button mat-button (click)="cancelCreatingWorkout()">
+                        CANCEL
+                    </button>
+                    <button mat-button color="accent" (click)="onCreateWorkout()">
+                        ADD
+                    </button>
+                </mat-card-actions>
+            </div>
+            <div #CREATE_CARD_END> </div>
+        </mat-card>
+
+        <div class="d-flex justify-content-end pb-4" *ngIf="!creatingWorkout">
+            <button mat-raised-button color="accent" (click)="clickCreatingWorkout()"><mat-icon>add</mat-icon>Add Workout</button>
+        </div>
+    </div>
+</div>

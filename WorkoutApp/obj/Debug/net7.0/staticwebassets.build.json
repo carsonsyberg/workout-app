@@ -1,0 +1,39 @@
+{
+  "Version": 1,
+  "Hash": "LOkTrIMIqE6zcsmtbOYcBcYcfuYvL1UZ33TGvPftg6Y=",
+  "Source": "WorkoutApp",
+  "BasePath": "_content/WorkoutApp",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "WorkoutApp\\wwwroot",
+      "Source": "WorkoutApp",
+      "ContentRoot": "C:\\Users\\carso\\OneDrive\\Documents\\Software\\WorkoutApp\\WorkoutApp\\wwwroot\\",
+      "BasePath": "_content/WorkoutApp",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\carso\\OneDrive\\Documents\\Software\\WorkoutApp\\WorkoutApp\\wwwroot\\favicon.ico",
+      "SourceId": "WorkoutApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\carso\\OneDrive\\Documents\\Software\\WorkoutApp\\WorkoutApp\\wwwroot\\",
+      "BasePath": "_content/WorkoutApp",
+      "RelativePath": "favicon.ico",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\favicon.ico"
+    }
+  ]
+}

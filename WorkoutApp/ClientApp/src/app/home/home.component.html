@@ -1,0 +1,118 @@
+<!-- <div *ngIf="loadingFavorite" class="text-center py-5">
+    <h3>
+        Loading Workout
+    </h3>
+    <mat-spinner class="mx-auto py-4 my-4" color="accent" strokeWidth="12"></mat-spinner>
+</div> -->
+<div *ngIf="!loadingFavorite">
+    <div *ngIf="currentDay" class="col px-4 pb-4" style="width: 100%; background-color: #fafafa;">
+        <!-- Go Back Button -->
+        <div class="mx-2 col d-flex justify-content-between">
+            <button mat-icon-button class="save-btn" *ngIf="currentDay" (click)="onEditDay()" [routerLink]="['/day', currentDay.id]"><mat-icon>edit</mat-icon></button>
+        </div>
+        <form class="mx-2" [formGroup]="dayForm" *ngIf="!loadingSets">
+            <!-- Day Title -->
+            <div class="d-flex justify-content-between align-items-center">
+                <button mat-icon-button (click)="toPreviousDay()"><mat-icon color="accent" style="transform: scale(2)">arrow_back</mat-icon></button>
+                <div>
+                    <h3 class="text-center workout-detail-header mt-4" *ngIf="currentDay">
+                        {{currentDay.name}}
+                    </h3>
+                    <h4 class="current-date">
+                        {{currentDate!.toLocaleDateString('en-US', { weekday: 'long' }) + ', ' + currentDate!.toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}}
+                    </h4>
+                </div>
+                <button mat-icon-button (click)="toNextDay()"><mat-icon color="accent" style="transform: scale(2)">arrow_forward</mat-icon></button>
+            </div>
+            <div formArrayName="sets">
+                <mat-card class="text-center my-4" *ngIf="sets().controls.length == 0">
+                    <mat-card-content class="py-4">No sets found.</mat-card-content>
+                </mat-card>
+                <div class="my-4" *ngFor="let set of sets().controls; index as setIndex">
+                    <div [formGroupName]="setIndex">
+                        <!-- Rep Table -->
+                        <mat-card class="my-2">
+                            <!-- Set Title & Delete Btn -->
+                            <div class="d-flex justify-content-between align-items-center card-top">
+                                <h4 class="set-name-input">{{set.value.name}}</h4>
+                            </div>
+                            <div class="card-top-spacer"></div>
+                            <table class="table table-bordered" style="margin-bottom: 0;">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" style="width: 10%">
+                                            <mat-icon color="accent">done</mat-icon>
+                                        </th>
+                                        <th scope="col" style="width: 45%"># Reps</th>
+                                        <th scope="col" style="width: 45%">Weight</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <ng-container formArrayName="reps">
+                                        <ng-container *ngFor="let rep of setReps(setIndex).controls; index as repIndex">
+                                            <tr [formGroupName]="repIndex">
+                                                <td class="rep-delete-btn p-0 text-center" style="vertical-align: middle;" *ngIf="rep.value.recordSaved">
+                                                    <mat-icon color="primary">done</mat-icon>
+                                                </td>
+                                                <td class="rep-delete-btn p-0 text-center" style="vertical-align: middle;" (click)="saveCompletedReps(setIndex, repIndex)" *ngIf="!rep.value.recordSaved">
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex justify-content-between">
+                                                        <div class="d-flex justify-content-between" style="gap: 0.5em">
+                                                            <mat-icon class="rep-num-arrow" (click)="clickChangeNumReps(true, setIndex, repIndex)">expand_less</mat-icon>
+                                                            <mat-icon class="rep-num-arrow" (click)="clickChangeNumReps(false, setIndex, repIndex)">expand_more</mat-icon>
+                                                        </div>
+                                                        <input type="number" class="rep-input" placeholder="0" formControlName="numReps" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex justify-content-between">
+                                                        <div class="d-flex justify-content-between" style="gap: 0.5em">
+                                                            <mat-icon class="rep-num-arrow" (click)="clickChangeWeight(true, setIndex, repIndex)">expand_less</mat-icon>
+                                                            <mat-icon class="rep-num-arrow" (click)="clickChangeWeight(false, setIndex, repIndex)">expand_more</mat-icon>
+                                                        </div>
+                                                        <input type="number" class="rep-input" placeholder="0" formControlName="weight" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </ng-container>
+                                    </ng-container>
+                                </tbody>
+                            </table>
+                        </mat-card>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div *ngIf="!currentDay && favoriteWorkout" class="col px-4" style="width: 100%; background-color: #fafafa;">
+        <div class="mx-2">
+            <!-- Day Title -->
+            <div class="d-flex justify-content-between align-items-center">
+                <button mat-icon-button (click)="toPreviousDay()"><mat-icon color="accent" style="transform: scale(2)">arrow_back</mat-icon></button>
+                <div>
+                    <h3 class="text-center workout-detail-header mt-4">
+                        Rest Day
+                    </h3>
+                    <h4 class="current-date">
+                        {{currentDate!.toLocaleDateString('en-US', { weekday: 'long' }) + ', ' + currentDate!.toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}}
+                    </h4>
+                </div>
+                <button mat-icon-button (click)="toNextDay()"><mat-icon color="accent" style="transform: scale(2)">arrow_forward</mat-icon></button>
+            </div>
+            <mat-card class="text-center my-4" *ngIf="sets().controls.length == 0">
+                <mat-card-content class="py-4">No day found.</mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+    <div *ngIf="!favoriteWorkout">
+        <div class="mx-2 row">
+            <h3 class="text-center workout-detail-header mt-4">
+                No Default Workout Set
+            </h3>
+        </div>
+        <div class="d-flex justify-content-center py-3">
+            <button mat-raised-button color="accent" routerLink="/myworkouts"><mat-icon>arrow_forward</mat-icon>My Workouts</button>
+        </div>
+    </div>
+</div>

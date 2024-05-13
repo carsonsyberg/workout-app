@@ -1,0 +1,11 @@
+.createday-field {
+    width: 100%;
+}
+
+.back-btn {
+  position: fixed;
+  top: 16px;
+  left: 70px;
+  color: white;
+  z-index: 99;
+}

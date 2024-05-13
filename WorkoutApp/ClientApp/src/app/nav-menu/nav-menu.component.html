@@ -1,0 +1,55 @@
+<header>
+    <mat-toolbar class="nav-bar" role="heading">
+        <button *ngIf="!onHomePage && isLoggedIn" mat-icon-button routerLink="/home">
+            <mat-icon>
+                home
+            </mat-icon>
+        </button>
+        <button *ngIf="onHomePage && isLoggedIn" mat-icon-button (click)="clickHomeOnHomePage()">
+            <mat-icon>home</mat-icon>
+        </button>
+        <button *ngIf="!isLoggedIn" mat-icon-button routerLink="/login">
+            <mat-icon>home</mat-icon>
+        </button>
+        <span class="nav-title"></span>
+        <span class="mx-3 nav-link-list">
+            <!--<a class="nav-link mx-4" routerLink="/login">Login</a>
+            <a class="nav-link mx-4" routerLink="/login" *ngIf="isLoggedIn">Logoff</a>
+            <a class="nav-link mx-4" routerLink="/register">Register</a>-->
+            <a class="nav-link mx-4" routerLink="/home" *ngIf="isLoggedIn">Favorite Workout</a>
+            <a class="nav-link mx-4" routerLink="/myworkouts" *ngIf="isLoggedIn">My Workouts</a>
+            <a class="nav-link mx-4" routerLink="/statistics">Statistics</a>
+            <!-- <a class="nav-link mx-4" routerLink="/settings">Settings</a> -->
+        </span>
+        <button mat-icon-button (click)="toggle()" class="dropdown-icon" aria-label="icon-button with hamburger menu icon">
+            <mat-icon>menu</mat-icon>
+        </button>
+    </mat-toolbar>
+    <div>
+        <ul [@openClose]="isExpanded ? 'open' : 'closed'" class="nav-dropdown list-group" style="background-color: white;">
+            <!--<li class="list-group-item list-group-item-action dropdown-link" routerLink="/login" (click)="collapse()">
+                <a>Login / Register</a>
+            </li>
+            <li class="list-group-item list-group-item-action dropdown-link" routerLink="/login" (click)="collapse()" *ngIf="isLoggedIn">
+                <a>Log Off</a>
+            </li>-->
+            <li class="list-group-item list-group-item-action dropdown-link" routerLink="/home" (click)="collapse()" *ngIf="isLoggedIn">
+                <a>Favorite Workout</a>
+            </li>
+            <li class="list-group-item list-group-item-action dropdown-link" routerLink="/myworkouts" (click)="collapse()" *ngIf="isLoggedIn">
+                <a>My Workouts</a>
+            </li>
+            <li class="list-group-item list-group-item-action dropdown-link" routerLink="/statistics" (click)="collapse()">
+              <a>Statistics</a>
+            </li>
+    <!-- <li class="list-group-item list-group-item-action dropdown-link" routerLink="/settings" (click)="collapse()">
+        <a>Settings</a>
+    </li> -->
+            <li class="list-group-item list-group-item-action nav-dropdown-up d-flex justify-content-start dropdown-link" (click)="collapse()">
+                <mat-icon>keyboard_arrow_up</mat-icon>
+            </li>
+        </ul>
+        <div [@overlayOpen]="isExpanded ? 'open' : 'closed'" class="dropdown-overlay" (click)="collapse()">
+        </div>
+    </div>
+</header>

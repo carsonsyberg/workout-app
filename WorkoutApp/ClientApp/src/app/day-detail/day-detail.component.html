@@ -1,0 +1,82 @@
+<div *ngIf="currentDay" class="px-4" style="width: 100%; height: 100%; background-color: #fafafa;">
+    <!-- Go Back Button -->
+    <div class="mx-2 col d-flex justify-content-between">
+        <button mat-icon-button class="back-btn" [routerLink]="cameFromHome ? ['/home'] : ['/workout/', currentDay.workoutId]"><mat-icon>arrow_back</mat-icon></button>
+        <button mat-icon-button class="save-btn" (click)="saveDayChanges()"><mat-icon *ngIf="!saveSuccess">save</mat-icon><mat-icon *ngIf="saveSuccess">done</mat-icon></button>
+    </div>
+    <form class="mx-2" [formGroup]="dayForm" *ngIf="!loadingSets">
+        <!-- Day Title -->
+        <div class="row d-flex justify-content-center">
+            <input type="text" class="text-center day-name-input mt-4" placeholder="Day Name" formControlName="name" />
+        </div>
+        <div formArrayName="sets">
+            <mat-card class="text-center my-4" *ngIf="sets().controls.length == 0">
+                <mat-card-content class="py-4">No sets found.</mat-card-content>
+            </mat-card>
+            <div class="my-4" *ngFor="let set of sets().controls; index as setIndex">
+                <div [formGroupName]="setIndex">
+                    <!-- Rep Table -->
+                    <mat-card class="my-2">
+                        <!-- Set Title & Delete Btn -->
+                        <div class="d-flex justify-content-between align-items-center card-top">
+                            <input class="set-name-input" placeholder="Set Name" formControlName="name" />
+                            <button class="mx-2 btn pt-2 rep-delete-btn" *ngIf="deletingSetIndex != setIndex" (click)="clickDeleteSet(setIndex)"><mat-icon color="accent">delete</mat-icon></button>
+                            <button class="mx-2 btn pt-2 rep-delete-btn" *ngIf="deletingSetIndex == setIndex" (click)="confirmDeleteSet()" style="background-color: #fff5f5;" (mouseleave)="cancelDeleteSet()"><mat-icon color="warn">delete_forever</mat-icon></button>
+                        </div>
+                        <div class="card-top-spacer"></div>
+                        <table class="table table-bordered" style="margin-bottom: 0;">
+                            <thead>
+                                <tr>
+                                    <th scope="col" style="width: 45%"># Reps</th>
+                                    <th scope="col" style="width: 45%">Weight</th>
+                                    <th scope="col" style="width: 10%"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <ng-container formArrayName="reps">
+                                    <ng-container *ngFor="let rep of setReps(setIndex).controls; index as repIndex">
+                                        <tr [formGroupName]="repIndex">
+                                            <td>
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="d-flex justify-content-between" style="gap: 0.5em">
+                                                        <mat-icon class="rep-num-arrow" (click)="clickChangeNumReps(true, setIndex, repIndex)">expand_less</mat-icon>
+                                                        <mat-icon class="rep-num-arrow" (click)="clickChangeNumReps(false, setIndex, repIndex)">expand_more</mat-icon>
+                                                    </div>
+                                                    <input type="number" class="rep-input" placeholder="0" formControlName="numReps" />
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="d-flex justify-content-between" style="gap: 0.5em">
+                                                        <mat-icon class="rep-num-arrow" (click)="clickChangeWeight(true, setIndex, repIndex)">expand_less</mat-icon>
+                                                        <mat-icon class="rep-num-arrow" (click)="clickChangeWeight(false, setIndex, repIndex)">expand_more</mat-icon>
+                                                    </div>
+                                                    <input type="number" class="rep-input" placeholder="0" formControlName="weight" />
+                                                </div>
+                                            </td>
+                                            <td class="rep-delete-btn" *ngIf="deletingRepSetIndex != setIndex || deletingRepIndex != repIndex" (click)="clickDeleteRep(setIndex, repIndex)">
+                                                <div class="d-flex justify-content-center align-items-center">
+                                                    <mat-icon color="accent">delete</mat-icon>
+                                                </div>
+                                            </td>
+                                            <td class="rep-delete-btn" *ngIf="deletingRepSetIndex == setIndex && deletingRepIndex == repIndex" (click)="confirmDeleteRep()" style="background-color: #fff5f5;" (mouseleave)="cancelDeleteRep()">
+                                                <div class="d-flex justify-content-center align-items-center">
+                                                    <mat-icon color="warn">delete_forever</mat-icon>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </ng-container>
+                                </ng-container>
+                            </tbody>
+                        </table>
+                        <button mat-stroked-button color="accent" style="border: none;" (click)="clickAddRep(setIndex)"><mat-icon>add</mat-icon></button>
+                    </mat-card>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-end pb-4" #CREATE_CARD_BTN>
+                <button mat-raised-button color="accent" (click)="clickAddSet()"><mat-icon>add</mat-icon>Add New Set</button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,8 @@
+{
+"SpaProxyServer": {
+"ServerUrl": "https://localhost:44467",
+"LaunchCommand": "npm start",
+"WorkingDirectory": "C:\\Users\\carso\\OneDrive\\Documents\\Software\\WorkoutApp\\WorkoutApp\\ClientApp\\",
+"MaxTimeoutInSeconds": "120"
+}
+}

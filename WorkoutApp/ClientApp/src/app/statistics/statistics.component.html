@@ -1,0 +1,111 @@
+<div class="container">
+    <div class="mx-2 pb-4">
+
+<!-- PAGE TITLE -->
+        <h3 class="text-center workout-detail-header my-4 d-block">
+            Statistics
+        </h3>
+
+<!-- TOTAL WEIGHT / NUM REPS CARDS -->
+        <div class="d-flex">
+          <mat-card class="text-center mx-2">
+            <mat-card-title class="mx-4">
+              <label class="my-2" style="color: #607d8b; font-size: large;">
+                Total Weight Moved
+              </label>
+            </mat-card-title>
+            <div class="card-top-spacer mb-2"></div>
+            <mat-card-content style="font-size: x-large;">
+              <p>{{totalWeightMoved}} lbs</p>
+            </mat-card-content>
+          </mat-card>
+          <mat-card class="text-center mx-2">
+            <mat-card-title class="mx-4">
+              <label class="my-2" style="color: #607d8b; font-size: large;">
+                Total Reps Completed
+              </label>
+            </mat-card-title>
+            <div class="card-top-spacer mb-2"></div>
+            <mat-card-content style="font-size: x-large;">
+              <p>x {{totalRepsCompleted}}</p>
+            </mat-card-content>
+          </mat-card>
+        </div>
+
+<!-- FILTERABLE GRAPH CARD -->
+      <mat-card class="my-4">
+        <mat-card-title class="mx-4">
+          <label class="my-2" *ngIf="showMaxGraph" style="color: #607d8b; font-size: x-large;">{{exercises[filterStatsForm.controls.exerciseName.value ?? 0]}} {{filterStatsForm.controls.maxOrTotal.value == "max" ? maxTitle : totalTitle}}</label>
+        </mat-card-title>
+        <div class="card-top-spacer mb-2"></div>
+        <mat-card-content>
+          <div style="height: 50%;">
+            <ngx-charts-line-chart
+              *ngIf="showMaxGraph && !loadingRecords"
+              [legend]="legend"
+              [showXAxisLabel]="showXAxisLabel"
+              [showYAxisLabel]="showYAxisLabel"
+              [xAxis]="xAxis"
+              [yAxis]="yAxis"
+              [yScaleMin]="yScaleMin"
+              [xAxisLabel]="xAxisLabel"
+              [yAxisLabel]="yAxisLabel"
+              [timeline]="timeline"
+              [results]="graphData"
+              [xAxisTickFormatting]="this.dateTickFormatting"
+            >
+            </ngx-charts-line-chart></div>
+        </mat-card-content>
+      </mat-card>
+
+<!-- FILTERS CARD -->
+      <mat-card>
+        <mat-card-title class="mx-4">
+          <label class="my-2" *ngIf="showMaxGraph" style="color: #607d8b; font-size: x-large;">Filters</label>
+        </mat-card-title>
+        <div class="card-top-spacer mb-2"></div>
+        <mat-card-content>
+          <form [formGroup]="filterStatsForm"
+                class="d-block d-flex flex-column mt-2 mx-2">
+            <mat-form-field color="accent">
+              <mat-label>Exercise</mat-label>
+              <mat-select formControlName="exerciseName">
+                <mat-option *ngFor="let exercise of exercises; index as i;" [value]="i">{{exercise}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-button-toggle-group formControlName="maxOrTotal" name="maxOrTotal" aria-label="Max or Total Weight" class="d-flex justify-content-evenly mb-2">
+              <mat-button-toggle style="width: 50%;" value="max">Max Weight</mat-button-toggle>
+              <mat-button-toggle style="width: 50%;" value="total">Total Weight</mat-button-toggle>
+            </mat-button-toggle-group>
+            <mat-button-toggle-group formControlName="allTimeOrRange" name="allOrDates" aria-label="All Time or Date Range" class="d-flex justify-content-evenly mb-2">
+              <mat-button-toggle style="width: 50%;" value="all">All Time</mat-button-toggle>
+              <mat-button-toggle style="width: 50%;" value="range">Date Range</mat-button-toggle>
+            </mat-button-toggle-group>
+            <mat-form-field *ngIf="!(filterStatsForm.controls.allTimeOrRange.value == 'all')">
+              <mat-label>Enter a date range</mat-label>
+              <mat-date-range-input [rangePicker]="picker">
+                <input matStartDate formControlName="dateRangeStart" placeholder="Start date">
+                <input matEndDate formControlName="dateRangeEnd" placeholder="End date">
+              </mat-date-range-input>
+              <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-date-range-picker #picker></mat-date-range-picker>
+            </mat-form-field>
+          </form>
+        </mat-card-content>
+      </mat-card>
+      <!--<mat-card class="my-4" *ngFor="let record of records; index as i">
+        <mat-card-header>
+          <mat-card-title>
+            {{record.excerciseName}}
+          </mat-card-title>
+          <mat-card-subtitle>
+            {{record.dateCompleted}}
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          {{record.weight}} lbs. x {{record.numReps}}
+        </mat-card-content>
+      </mat-card>-->
+    </div>
+</div>

@@ -1,0 +1,95 @@
+<div *ngIf="logginIn">
+    <div class="mx-2 row">
+        <h3 class="text-center workout-detail-header mt-4">
+            Login
+        </h3>
+    </div>
+    <mat-card class="my-4 pt-2 mx-4">
+        <mat-card-content>
+            <form [formGroup]="loginForm" class="d-flex flex-column">
+                <mat-form-field color="accent" class="createworkout-field">
+                    <mat-label>Username or Email</mat-label>
+                    <input matInput type="text" formControlName="userOrEmail" autofocus>
+                    <button matSuffix mat-icon-button aria-label="Clear">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+                <mat-form-field color="accent" class="createworkout-field">
+                    <mat-label>Password</mat-label>
+                    <input matInput type="password" formControlName="password" autofocus>
+                    <button matSuffix mat-icon-button aria-label="Clear">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </form>
+        </mat-card-content>
+        <div class="card-top-spacer"></div>
+        <div class="d-flex justify-content-between">
+            <mat-card-actions align="start">
+                <button mat-button color="accent" (click)="toggleLogginIn()">
+                    <mat-icon class="material-symbols-outlined" color="accent">how_to_reg</mat-icon>REGISTER
+                </button>
+            </mat-card-actions>
+            <mat-card-actions align="end">
+                <button mat-button (click)="clearLogin()">
+                    CLEAR
+                </button>
+                <button mat-button color="accent" (click)="login()">
+                    LOGIN
+                </button>
+            </mat-card-actions>
+        </div>
+        <div #CREATE_CARD_END> </div>
+    </mat-card>
+</div>
+<div *ngIf="!logginIn">
+    <div class="mx-2 row">
+        <h3 class="text-center workout-detail-header mt-4">
+            Register
+        </h3>
+    </div>
+    <mat-card class="my-4 pt-2 mx-4">
+        <mat-card-content>
+            <form [formGroup]="registerForm" class="d-flex flex-column">
+                <mat-form-field color="accent" class="createworkout-field">
+                    <mat-label>Email</mat-label>
+                    <input matInput type="text" formControlName="Email" autofocus>
+                    <button matSuffix mat-icon-button aria-label="Clear">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+                <mat-form-field color="accent" class="createworkout-field">
+                    <mat-label>Username</mat-label>
+                    <input matInput type="text" formControlName="Name" autofocus>
+                    <button matSuffix mat-icon-button aria-label="Clear">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+                <mat-form-field color="accent" class="createworkout-field">
+                    <mat-label>Password</mat-label>
+                    <input matInput type="password" formControlName="Password" autofocus>
+                    <button matSuffix mat-icon-button aria-label="Clear">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </form>
+        </mat-card-content>
+        <div class="card-top-spacer"></div>
+        <div class="d-flex justify-content-between">
+            <mat-card-actions align="start">
+                <button mat-button color="accent" (click)="toggleLogginIn()">
+                    <mat-icon class="material-symbols-outlined" color="accent">close</mat-icon>CANCEL
+                </button>
+            </mat-card-actions>
+            <mat-card-actions align="end">
+                <button mat-button (click)="clearRegister()">
+                    CLEAR
+                </button>
+                <button mat-button color="accent" (click)="register()">
+                    REGISTER
+                </button>
+            </mat-card-actions>
+        </div>
+        <div #CREATE_CARD_END> </div>
+    </mat-card>
+</div>
